@@ -101,9 +101,7 @@
       position: sticky;
       top: 0;
       z-index: 30;
-      background: rgba(246, 246, 251, 0.96);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+      background: transparent;
     }
 
     .header-inner {
@@ -111,7 +109,11 @@
       align-items: center;
       justify-content: space-between;
       gap: 24px;
-      padding: 16px 0;
+      padding: 14px 20px;
+      background: #111827;
+      border-radius: 20px;
+      color: #ffffff;
+      margin: 16px auto 0;
     }
 
     .logo {
@@ -126,6 +128,7 @@
       gap: 30px;
       font-size: 15px;
       font-weight: 500;
+      color: #ffffff;
     }
 
     .nav-desktop a:hover {
@@ -150,6 +153,7 @@
       background: none;
       border: none;
       cursor: pointer;
+      color: #ffffff;
     }
 
     .mobile-menu {
@@ -157,8 +161,9 @@
       opacity: 0;
       overflow: hidden;
       padding: 0 20px;
-      border-top: 1px solid var(--border-soft);
-      background: #ffffff;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      background: #111827;
+      color: #ffffff;
       transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
     }
 
@@ -667,7 +672,7 @@
       align-items: center;
       gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .search-wrap {
@@ -712,7 +717,7 @@
       border-radius: 18px;
       padding: 16px;
       border: 1px solid var(--border-soft);
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .filters-head {
@@ -781,7 +786,7 @@
 
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 20px;
     }
 
@@ -810,7 +815,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      min-height: 320px;
+      min-height: 240px;
       overflow: hidden;
       color: #ffffff;
       box-shadow: 0 14px 30px rgba(15, 23, 42, 0.1);
@@ -1227,7 +1232,7 @@
     /* 5) ПРЕИМУЩЕСТВА — ПОЛОСА ПО СКРОЛЛУ, БЕЗ АВТО-СЛАЙДЕРА */
 
     .advantages {
-      background: #ffffff;
+      background: #f1f2f8;
       border-radius: 28px;
       padding: 28px;
       color: #111827;
@@ -1281,14 +1286,14 @@
     }
 
     .advantages-list::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.35);
+      background: rgba(17, 24, 39, 0.2);
       border-radius: 999px;
     }
 
     .adv-card {
       border-radius: 28px;
       padding: 22px;
-      background: #ffffff;
+      background: #f9fafb;
       border: 2px solid #111827;
       display: grid;
       grid-template-columns: minmax(0, 1fr);
@@ -1335,7 +1340,7 @@
     }
 
     .adv-card--soft {
-      background: #ffffff;
+      background: #f9fafb;
       border-style: solid;
     }
 
@@ -1691,7 +1696,7 @@
 
     footer {
       padding: 60px 0 40px;
-      background: #f4f5fb;
+      background: #111827;
     }
 
     .footer-grid {
@@ -1701,27 +1706,29 @@
       align-items: start;
       padding: 28px;
       border-radius: 24px;
-      background: #ffffff;
-      border: 1px solid var(--border-soft);
+      background: #0b1220;
+      border: 1px solid rgba(255, 255, 255, 0.08);
       margin: 0 0 18px;
       max-width: none;
+      color: #e5e7eb;
     }
 
     .footer-grid--new .logo {
       font-size: 20px;
+      color: #ffffff;
     }
 
     .footer-main {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      color: #4b5563;
+      color: #e5e7eb;
       font-size: 14px;
     }
 
     .footer-legal {
       font-size: 12px;
-      color: #6b7280;
+      color: #9ca3af;
       display: grid;
       gap: 4px;
     }
@@ -1730,14 +1737,14 @@
       display: grid;
       gap: 8px;
       font-size: 14px;
-      color: #4b5563;
+      color: #e5e7eb;
     }
 
     .footer-bottom {
       display: flex;
       justify-content: space-between;
       gap: 16px;
-      color: #6b7280;
+      color: #9ca3af;
       font-size: 13px;
       padding: 0 6px;
     }
@@ -2750,12 +2757,9 @@
       if (!advantagesSection || !advantagesList) {
         return;
       }
-      const sectionTop = advantagesSection.offsetTop;
-      const sectionHeight = advantagesSection.offsetHeight;
-      const windowHeight = window.innerHeight;
-      const start = sectionTop - windowHeight * 0.6;
-      const end = sectionTop + sectionHeight;
-      const progress = Math.min(Math.max((window.scrollY - start) / (end - start), 0), 1);
+      const rect = advantagesSection.getBoundingClientRect();
+      const total = rect.height + window.innerHeight;
+      const progress = Math.min(Math.max((window.innerHeight - rect.top) / total, 0), 1);
       const maxScroll = advantagesList.scrollWidth - advantagesList.clientWidth;
       advantagesList.scrollLeft = maxScroll * progress;
     };
