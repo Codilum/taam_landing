@@ -101,9 +101,9 @@
       position: sticky;
       top: 0;
       z-index: 30;
-      background: rgba(246, 246, 251, 0.9);
+      background: rgba(246, 246, 251, 0.96);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-soft);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
     }
 
     .header-inner {
@@ -111,7 +111,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 24px;
-      padding: 18px 0;
+      padding: 16px 0;
     }
 
     .logo {
@@ -133,6 +133,10 @@
       text-decoration-color: var(--color-lime);
       text-decoration-thickness: 3px;
       text-underline-offset: 4px;
+    }
+
+    .site-header .btn-login-yellow {
+      background-color: var(--color-lime);
     }
 
     .header-btn-wrap {
@@ -663,7 +667,7 @@
       align-items: center;
       gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
 
     .search-wrap {
@@ -708,7 +712,7 @@
       border-radius: 18px;
       padding: 16px;
       border: 1px solid var(--border-soft);
-      height: fit-content;
+      margin-bottom: 12px;
     }
 
     .filters-head {
@@ -769,10 +773,16 @@
       color: #fff;
     }
 
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 18px;
+      gap: 20px;
     }
 
     @media (max-width: 1180px) {
@@ -796,11 +806,11 @@
     .place-card {
       position: relative;
       border-radius: 20px;
-      padding: 18px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      min-height: 280px;
+      min-height: 320px;
       overflow: hidden;
       color: #ffffff;
       box-shadow: 0 14px 30px rgba(15, 23, 42, 0.1);
@@ -860,10 +870,27 @@
       color: #111827;
     }
 
+    .place-card-badge--type {
+      background: #ffeb5a;
+    }
+
+    .place-card-badge--city {
+      background: #90ff55;
+    }
+
     .place-card-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
+    }
+
+    .place-card-tags-title {
+      display: block;
+      width: 100%;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.75);
     }
 
     .tag-pill {
@@ -897,7 +924,7 @@
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.9);
+      background: #ffeb5a;
       color: #111827;
       display: inline-flex;
       align-items: center;
@@ -1200,11 +1227,11 @@
     /* 5) ПРЕИМУЩЕСТВА — ПОЛОСА ПО СКРОЛЛУ, БЕЗ АВТО-СЛАЙДЕРА */
 
     .advantages {
-      background: #050816;
-      border-radius: var(--radius-lg);
-      padding: 22px 22px 20px;
-      color: #e5e7eb;
-      box-shadow: var(--shadow-soft);
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 28px;
+      color: #111827;
+      box-shadow: var(--shadow-card);
     }
 
     .advantages-header {
@@ -1215,21 +1242,35 @@
       margin-bottom: 12px;
     }
 
+    .advantages-barcode {
+      width: 170px;
+      height: 42px;
+      background: repeating-linear-gradient(
+        90deg,
+        #111827 0,
+        #111827 4px,
+        transparent 4px,
+        transparent 8px
+      );
+      border-radius: 6px;
+      opacity: 0.9;
+    }
+
     .advantages-title {
-      font-size: 18px;
-      letter-spacing: -0.04em;
+      font-size: 26px;
+      letter-spacing: -0.03em;
       margin: 0;
     }
 
     .advantages-subtitle {
       font-size: 13px;
-      color: #9ca3af;
+      color: #6b7280;
       margin: 0;
     }
 
     .advantages-list {
       display: flex;
-      gap: 18px;
+      gap: 16px;
       overflow-x: auto;
       padding-bottom: 10px;
       scroll-snap-type: x mandatory;
@@ -1245,40 +1286,44 @@
     }
 
     .adv-card {
-      border-radius: 20px;
-      padding: 18px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.6);
+      border-radius: 28px;
+      padding: 22px;
+      background: #ffffff;
+      border: 2px solid #111827;
       display: grid;
       grid-template-columns: minmax(0, 1fr);
       gap: 12px;
       align-items: flex-start;
-      min-width: 280px;
+      min-width: 260px;
       aspect-ratio: 1 / 1;
       scroll-snap-align: start;
     }
 
     .adv-icon {
-      width: 28px;
-      height: 28px;
+      width: 72px;
+      height: 72px;
       border-radius: 999px;
-      background: linear-gradient(135deg, #facc15, #f97316);
+      background: #ffeb5a;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 28px;
+      margin: 6px auto 0;
     }
 
     .adv-main-title {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 3px;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-align: center;
+      text-transform: uppercase;
     }
 
     .adv-main-text {
       font-size: 13px;
-      color: #9ca3af;
+      color: #374151;
       margin: 0;
+      text-align: center;
     }
 
     .adv-label {
@@ -1290,8 +1335,8 @@
     }
 
     .adv-card--soft {
-      background: rgba(15, 23, 42, 0.7);
-      border-style: dashed;
+      background: #ffffff;
+      border-style: solid;
     }
 
     /* 6) ТАРИФЫ — GRID, ПРЕМИУМ В ЦЕНТРЕ, HOVER */
@@ -1646,6 +1691,7 @@
 
     footer {
       padding: 60px 0 40px;
+      background: #f4f5fb;
     }
 
     .footer-grid {
@@ -1655,10 +1701,10 @@
       align-items: start;
       padding: 28px;
       border-radius: 24px;
-      background: #f4f5fb;
+      background: #ffffff;
       border: 1px solid var(--border-soft);
-      margin: 0 auto 18px;
-      max-width: 1100px;
+      margin: 0 0 18px;
+      max-width: none;
     }
 
     .footer-grid--new .logo {
@@ -2161,76 +2207,41 @@
         <div class="container">
           <div class="advantages">
             <div class="advantages-header">
-              <div>
-                <h2 class="advantages-title">Преимущества taam.menu для заведений</h2>
-                <p class="advantages-subtitle">
-                  Каждый блок — отдельная выгода, которую гость чувствует сразу, а вы — в выручке.
-                </p>
-              </div>
-              <div class="advantages-subtitle">
-                Листайте страницу — преимущества идут подряд, без автопрокрутки.
-              </div>
+              <h2 class="advantages-title">Преимущества</h2>
+              <div class="advantages-barcode" aria-hidden="true"></div>
             </div>
 
             <div class="advantages-list">
               <article class="adv-card">
-                <div class="adv-icon">⚡</div>
-                <div>
-                  <div class="adv-main-title">Быстрый запуск без разработчика</div>
-                  <p class="adv-main-text">
-                    Готовое решение: не нужно заказывать сайт, макеты и верстку меню каждое изменение.
-                  </p>
-                </div>
+                <div class="adv-icon">🤖</div>
+                <div class="adv-main-title">Экономия</div>
+                <p class="adv-main-text">Не тратьтесь на печать и обновление бумажных меню.</p>
               </article>
 
               <article class="adv-card adv-card--soft">
-                <div class="adv-icon">💸</div>
-                <div>
-                  <div class="adv-main-title">Экономия на печати и дизайне</div>
-                  <p class="adv-main-text">
-                    Любое изменение цены — в пару кликов, без перепечатки бумажных меню и плакатов.
-                  </p>
-                </div>
+                <div class="adv-icon">🛍️</div>
+                <div class="adv-main-title">Удобство</div>
+                <p class="adv-main-text">Изменения в меню занимают секунды.</p>
               </article>
 
               <article class="adv-card">
-                <div class="adv-icon">📱</div>
-                <div>
-                  <div class="adv-main-title">Удобно с телефона и планшета</div>
-                  <p class="adv-main-text">
-                    Меню адаптировано под смартфоны: крупный текст, понятные кнопки и быстрый скролл.
-                  </p>
-                </div>
+                <div class="adv-icon">⏳</div>
+                <div class="adv-main-title">Гибкость</div>
+                <p class="adv-main-text">Скрывайте блюда, если их нет в наличии.</p>
               </article>
 
               <article class="adv-card adv-card--soft">
-                <div class="adv-icon">👨‍🍳</div>
-                <div>
-                  <div class="adv-main-title">Меньше вопросов официанту</div>
-                  <p class="adv-main-text">
-                    Фото, состав и вес блюд уже в меню — персоналу проще работать с гостями.
-                  </p>
-                </div>
+                <div class="adv-icon">💬</div>
+                <div class="adv-main-title">Для гостей</div>
+                <p class="adv-main-text">Меню доступно по QR и ссылке без установки приложений.</p>
               </article>
 
               <article class="adv-card">
-                <div class="adv-icon">📊</div>
-                <div>
-                  <div class="adv-main-title">Статистика заказов и позиций</div>
-                  <p class="adv-main-text">
-                    Видно, какие блюда заказывают чаще, а какие “висят” в меню и занимают место.
-                  </p>
-                </div>
-              </article>
-
-              <article class="adv-card adv-card--soft">
-                <div class="adv-icon">🧩</div>
-                <div>
-                  <div class="adv-main-title">Работает вместе с вашим брендом</div>
-                  <p class="adv-main-text">
-                    Настраиваем цвета, фото и оформление под стиль заведения, а не наоборот.
-                  </p>
-                </div>
+                <div class="adv-icon">⚖️</div>
+                <div class="adv-main-title">Новые гости</div>
+                <p class="adv-main-text">
+                  Ваше заведение в каталоге taam.menu, где гости ищут по городам, кухням и тегам.
+                </p>
               </article>
             </div>
           </div>
@@ -2669,11 +2680,12 @@
             (item) => `
               <article class="place-card" style="--card-image: url('${item.img}');">
                 <div class="place-card-content">
-                  <div class="place-card-badges">
-                    <span class="place-card-badge">${item.type}</span>
-                    <span class="place-card-badge">${item.city}</span>
+            <div class="place-card-badges">
+                    <span class="place-card-badge place-card-badge--type">${item.type}</span>
+                    <span class="place-card-badge place-card-badge--city">${item.city}</span>
                   </div>
                   <div class="place-card-tags">
+                    <span class="place-card-tags-title">place-card-tags</span>
                     ${item.tags.map((tag) => `<span class="tag-pill">${tag}</span>`).join("")}
                   </div>
                   <div class="place-card-footer">
