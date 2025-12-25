@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <title>taam.menu — Цифровые меню для кафе и ресторанов</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
   <style>
     :root {
       --bg-main: #f6f6fb;
@@ -24,6 +30,14 @@
       --shadow-card: 0 10px 30px rgba(15, 23, 42, 0.06);
       --transition-fast: 0.18s ease-out;
       --transition-med: 0.22s ease-out;
+      --color-black: #000000;
+      --color-white: #ffffff;
+      --color-lime: #ffeb5a;
+      --color-pink: #ff66cc;
+      --color-yellow: #ffeb3b;
+      --font-main: "Inter", sans-serif;
+      --font-display: "Unbounded", sans-serif;
+      --shadow-hard: 6px 6px 0px 0px var(--color-black);
     }
 
     * {
@@ -32,8 +46,7 @@
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
+      font-family: var(--font-main);
       background: var(--bg-main);
       color: var(--text-main);
       line-height: 1.5;
@@ -57,81 +70,455 @@
 
     .container {
       width: 100%;
-      max-width: 1120px;
+      max-width: 1240px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 24px;
     }
 
-    /* HERO (оставлен как есть по стилю, только чуть сглажены углы) */
+    h1,
+    h2,
+    h3 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+    }
 
-    .hero {
-      background: var(--bg-hero);
-      border-radius: 0 0 32px 32px;
-      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.12);
-      padding: 32px 0 40px;
+    /* HEADER */
+
+    .site-header {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 30;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--color-black);
     }
 
-    .hero-inner {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: 32px;
+    .header-inner {
+      display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px 0;
     }
 
-    .hero-badge {
+    .logo {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-desktop {
+      display: flex;
+      gap: 30px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .nav-desktop a:hover {
+      text-decoration: underline;
+      text-decoration-color: var(--color-lime);
+      text-decoration-thickness: 3px;
+      text-underline-offset: 4px;
+    }
+
+    .header-btn-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .burger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .mobile-menu {
+      display: none;
+      padding: 20px;
+      border-top: 2px solid var(--color-black);
+      background: #ffffff;
+    }
+
+    .mobile-menu ul {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      font-weight: 500;
+      font-size: 18px;
+    }
+
+    /* КНОПКИ */
+
+    .btn-pill {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 4px 10px;
+      justify-content: space-between;
+      background-color: var(--color-lime);
+      border: 2px solid transparent;
       border-radius: 999px;
-      background: var(--accent-soft);
-      color: #7c5a00;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
+      padding: 6px 6px 6px 24px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
       text-transform: uppercase;
-      margin-bottom: 14px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      text-decoration: none;
+      color: var(--color-black);
+      gap: 16px;
+      box-shadow: none;
+    }
+
+    .btn-pill:hover {
+      transform: scale(1.02);
+    }
+
+    .btn-pill:active {
+      transform: scale(0.98);
+    }
+
+    .btn-icon-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: none;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-pill:hover .btn-icon-circle {
+      transform: rotate(45deg);
+    }
+
+    .btn-pill--pink {
+      background-color: var(--color-pink);
+      color: #ffffff;
+    }
+
+    .btn-pill--pink .btn-icon-circle {
+      color: var(--color-black);
+    }
+
+    .btn-login-yellow {
+      background-color: var(--color-yellow);
+      padding: 6px 6px 6px 24px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      transition: transform 0.2s;
+      text-decoration: none;
+      color: var(--color-black);
+      border: 2px solid transparent;
+    }
+
+    .btn-login-yellow:hover {
+      transform: scale(1.02);
+    }
+
+    .login-icon-circle {
+      width: 34px;
+      height: 34px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 96px 0;
+      position: relative;
+      overflow: hidden;
+      background-color: var(--bg-hero);
+      background-image: linear-gradient(to right, #f0f0f0 1px, transparent 1px),
+        linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 64px;
+      align-items: center;
+    }
+
+    .version-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 9999px;
+      padding: 6px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      font-family: var(--font-main);
+      color: #111;
+    }
+
+    .version-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--color-lime);
+      border-radius: 50%;
+      margin-right: 10px;
+      box-shadow: 0 0 8px var(--color-lime);
     }
 
     .hero-title {
-      font-size: 34px;
+      font-size: 58px;
       line-height: 1.1;
-      letter-spacing: -0.04em;
-      margin: 0 0 12px;
+      margin-bottom: 24px;
+      letter-spacing: -0.03em;
     }
 
-    .hero-subtitle {
-      font-size: 15px;
-      color: var(--text-muted);
-      max-width: 400px;
+    .highlight-underline {
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .highlight-underline svg {
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 12px;
+      z-index: -1;
+      color: var(--color-lime);
+    }
+
+    .hero-desc {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 32px;
+      max-width: 560px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
       margin-bottom: 18px;
     }
 
-    .hero-actions {
+    .hero-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
       align-items: center;
-      margin-bottom: 16px;
+      font-size: 13px;
+      color: #6b7280;
     }
+
+    .hero-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #f3f4ff;
+    }
+
+    .mockup-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .blob-lime {
+      position: absolute;
+      top: -20px;
+      right: 20px;
+      width: 280px;
+      height: 280px;
+      background: var(--color-lime);
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.6;
+      z-index: 0;
+    }
+
+    .blob-pink {
+      position: absolute;
+      bottom: -20px;
+      left: 40px;
+      width: 240px;
+      height: 240px;
+      background: var(--color-pink);
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.5;
+      z-index: 0;
+    }
+
+    .phone-card {
+      position: relative;
+      z-index: 1;
+      background: var(--color-white);
+      border: 2px solid var(--color-black);
+      border-radius: 30px;
+      padding: 22px;
+      box-shadow: var(--shadow-hard);
+      transform: rotate(-3deg);
+      transition: transform 0.3s;
+      max-width: 360px;
+    }
+
+    .phone-card:hover {
+      transform: rotate(0deg);
+    }
+
+    .phone-screen {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 9/16;
+      position: relative;
+    }
+
+    .qr-code-overlay {
+      position: absolute;
+      top: 50px;
+      right: 5px;
+      width: 80px;
+      height: 80px;
+      background: white;
+      padding: 4px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+    }
+
+    .qr-img-placeholder {
+      width: 100%;
+      height: 100%;
+      background-image: url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=taam.menu");
+      background-size: cover;
+      opacity: 0.9;
+    }
+
+    .skeleton-header {
+      height: 50px;
+      border-bottom: 1px solid #eee;
+      background: #fff;
+      margin-bottom: 15px;
+    }
+
+    .skeleton-banner {
+      height: 100px;
+      background: #eee;
+      margin: 0 15px 15px;
+      border-radius: 10px;
+    }
+
+    .skeleton-row {
+      display: flex;
+      gap: 10px;
+      padding: 0 15px;
+      margin-bottom: 10px;
+    }
+
+    .skeleton-img {
+      width: 50px;
+      height: 50px;
+      background: #eee;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .skeleton-text div {
+      height: 8px;
+      background: #eee;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+
+    .skeleton-text {
+      flex-grow: 1;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+        text-align: center;
+      }
+
+      .hero-title {
+        font-size: 40px;
+      }
+
+      .hero-desc {
+        margin: 0 auto 30px;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .mockup-wrapper {
+        margin-top: 40px;
+      }
+
+      .nav-desktop {
+        display: none;
+      }
+
+      .burger {
+        display: block;
+      }
+
+      .header-btn-wrap {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding: 70px 0 80px;
+      }
+
+      .hero-title {
+        font-size: 32px;
+      }
+
+      .btn-pill {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    /* SECTIONS */
 
     .btn-primary {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 10px 18px;
+      gap: 10px;
+      padding: 12px 22px;
       border-radius: 999px;
       border: none;
       cursor: pointer;
       background: var(--accent);
       color: #1b1300;
       font-weight: 600;
-      font-size: 14px;
-      box-shadow: 0 12px 30px rgba(250, 204, 21, 0.45);
+      font-size: 15px;
+      box-shadow: 0 16px 35px rgba(250, 204, 21, 0.4);
       transition: transform var(--transition-fast),
         box-shadow var(--transition-fast),
         background var(--transition-fast);
@@ -139,15 +526,15 @@
 
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 18px 40px rgba(250, 204, 21, 0.4);
+      box-shadow: 0 22px 45px rgba(250, 204, 21, 0.35);
       background: #ffd84f;
     }
 
     .btn-ghost {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 8px 14px;
+      gap: 8px;
+      padding: 10px 16px;
       border-radius: 999px;
       border: 1px dashed rgba(148, 163, 184, 0.8);
       background: #f9fafb;
@@ -165,214 +552,18 @@
       transform: translateY(-1px);
     }
 
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-      font-size: 12px;
-      color: #6b7280;
-    }
-
-    .hero-meta-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: #f3f4ff;
-    }
-
-    .hero-visual {
-      position: relative;
-      padding: 12px;
-      border-radius: 26px;
-      background: radial-gradient(circle at 0% 0%, #fff7d1 0, #e5f0ff 40%, #f9fafb 100%);
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.21);
-      overflow: hidden;
-    }
-
-    .hero-visual-inner {
-      border-radius: 18px;
-      background: #ffffff;
-      padding: 16px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: 14px;
-      align-items: flex-start;
-    }
-
-    .hero-visual-menu {
-      border-radius: 16px;
-      background: #f9fafb;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      font-size: 11px;
-    }
-
-    .hero-visual-menu-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-
-    .hero-visual-menu-title {
-      font-weight: 600;
-      font-size: 12px;
-    }
-
-    .hero-visual-menu-tag {
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 999px;
-      background: #e0f2fe;
-      color: #0369a1;
-    }
-
-    .hero-visual-menu-item {
-      display: grid;
-      grid-template-columns: minmax(0, 1.7fr) auto;
-      gap: 8px;
-      align-items: center;
-      padding: 6px 6px;
-      border-radius: 10px;
-      background: #ffffff;
-    }
-
-    .hero-visual-menu-item-name {
-      font-weight: 500;
-      font-size: 11px;
-    }
-
-    .hero-visual-menu-item-meta {
-      font-size: 10px;
-      color: #9ca3af;
-    }
-
-    .hero-visual-menu-item-price {
-      font-weight: 600;
-      font-size: 11px;
-    }
-
-    .hero-visual-qr {
-      border-radius: 16px;
-      background: #111827;
-      color: #f9fafb;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-visual-qr-badge {
-      font-size: 10px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(248, 250, 252, 0.08);
-      width: fit-content;
-    }
-
-    .hero-visual-qr-title {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: -0.03em;
-    }
-
-    .hero-visual-qr-meta {
-      font-size: 11px;
-      color: #9ca3af;
-    }
-
-    .hero-visual-qr-preview {
-      margin-top: 4px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .hero-visual-qr-code {
-      width: 56px;
-      height: 56px;
-      border-radius: 12px;
-      background: repeating-linear-gradient(
-          45deg,
-          #fefce8 0,
-          #fefce8 4px,
-          #facc15 4px,
-          #facc15 8px
-        ),
-        radial-gradient(circle at 0 0, #fef9c3, #f97316);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-visual-qr-code::after {
-      content: "";
-      position: absolute;
-      inset: 12px;
-      border-radius: 8px;
-      background: radial-gradient(circle at 30% 30%, #111827 0, #020617 50%);
-      box-shadow: inset 0 0 0 2px rgba(248, 250, 252, 0.35);
-    }
-
-    .hero-visual-qr-link {
-      flex: 1;
-      font-size: 11px;
-      padding: 6px 8px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.88);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-    }
-
-    .hero-visual-qr-link span {
-      display: block;
-      color: #e5e7eb;
-    }
-
-    @media (max-width: 860px) {
-      .hero-inner {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .hero-visual {
-        order: -1;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .hero {
-        padding: 20px 0 26px;
-        border-radius: 0 0 24px 24px;
-      }
-
-      .hero-title {
-        font-size: 26px;
-      }
-
-      .hero-visual-inner {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    /* SECTIONS */
-
     main {
       flex: 1;
-      padding: 32px 0 72px;
+      padding: 48px 0 96px;
     }
 
     section {
-      margin-bottom: 56px;
+      margin-bottom: 72px;
     }
 
     .section-header {
-      max-width: 720px;
-      margin-bottom: 22px;
+      max-width: 760px;
+      margin-bottom: 28px;
     }
 
     .section-kicker {
@@ -384,9 +575,9 @@
     }
 
     .section-title {
-      font-size: 24px;
+      font-size: 28px;
       letter-spacing: -0.04em;
-      margin: 0 0 6px;
+      margin: 0 0 8px;
     }
 
     .section-subtitle {
@@ -405,14 +596,26 @@
       background: var(--bg-card);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-card);
-      padding: 18px 18px 20px;
+      padding: 24px 24px 28px;
     }
 
     .catalog-filters {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+    }
+
+    .filter-group {
+      position: relative;
+    }
+
+    .filter-group summary {
+      list-style: none;
+    }
+
+    .filter-group summary::-webkit-details-marker {
+      display: none;
     }
 
     .filter-pill {
@@ -443,10 +646,57 @@
       transform: translateY(-1px);
     }
 
+    .filter-group[open] > .filter-pill {
+      background: #111827;
+      border-color: #111827;
+      color: #f9fafb;
+    }
+
+    .filter-panel {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 220px;
+      padding: 10px;
+      border-radius: 14px;
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 5;
+    }
+
+    .filter-option {
+      border-radius: 999px;
+      padding: 6px 10px;
+      border: 1px solid transparent;
+      background: #f9fafb;
+      font-size: 12px;
+      text-align: left;
+      cursor: pointer;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .filter-option.is-active {
+      background: #111827;
+      border-color: #111827;
+      color: #ffffff;
+    }
+
     .catalog-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    @media (max-width: 1180px) {
+      .catalog-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 980px) {
@@ -464,7 +714,7 @@
     .place-card {
       background: #f9fafb;
       border-radius: 16px;
-      padding: 10px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -478,6 +728,10 @@
       transform: translateY(-4px);
       box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
       background: #ffffff;
+    }
+
+    .place-card.is-hidden {
+      display: none;
     }
 
     .place-card-top {
@@ -560,7 +814,7 @@
       background: #ffffff;
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-card);
-      padding: 18px 18px 16px;
+      padding: 24px 24px 20px;
       display: grid;
       grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.05fr);
       gap: 18px;
@@ -619,7 +873,7 @@
     .how-card-right {
       position: relative;
       border-radius: var(--radius-lg);
-      padding: 18px 18px 16px;
+      padding: 22px 22px 18px;
       background: radial-gradient(circle at 0 0, #fff7c4 0, #ffe7c7 38%, #fee2e2 100%);
       overflow: hidden;
       box-shadow: var(--shadow-soft);
@@ -792,7 +1046,7 @@
       border-radius: var(--radius-lg);
       background: #050816;
       color: #e5e7eb;
-      padding: 16px 16px 14px;
+      padding: 20px 20px 18px;
       position: relative;
       overflow: hidden;
     }
@@ -835,7 +1089,7 @@
     .advantages {
       background: #050816;
       border-radius: var(--radius-lg);
-      padding: 18px 18px 16px;
+      padding: 22px 22px 20px;
       color: #e5e7eb;
       box-shadow: var(--shadow-soft);
     }
@@ -1277,178 +1531,305 @@
     /* 9) ФУТЕР */
 
     footer {
-      margin-top: 34px;
-      border-top: 1px solid #e5e7eb;
-      background: #f9fafb;
+      padding: 40px 0 60px;
     }
 
-    .footer-inner {
-      padding: 14px 0 18px;
-      display: flex;
-      gap: 24px;
-      justify-content: space-between;
-      align-items: flex-start;
-      font-size: 12px;
-      color: #6b7280;
-      flex-wrap: wrap;
+    .footer-shell {
+      background: #ffffff;
+      border-top: 2px solid var(--color-black);
+      border-radius: 32px 32px 0 0;
+      padding: 48px 0 32px;
+      box-shadow: 0 -18px 40px rgba(15, 23, 42, 0.06);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 36px;
+      margin-bottom: 48px;
+    }
+
+    .footer-col h3 {
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: #374151;
+    }
+
+    .footer-col ul li a:hover {
+      text-decoration: underline;
+      text-decoration-color: var(--color-pink);
     }
 
     .footer-brand {
-      max-width: 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .footer-logo {
-      font-weight: 600;
-      font-size: 16px;
-      margin-bottom: 4px;
-      color: #111827;
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
     }
 
     .footer-email {
-      margin-bottom: 4px;
+      font-size: 14px;
+      color: #374151;
     }
 
-    .footer-legal {
-      font-size: 11px;
-      color: #9ca3af;
-    }
-
-    .footer-nav {
+    .social-links {
       display: flex;
-      gap: 16px;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--color-black);
+      border-radius: 50%;
+      display: flex;
       align-items: center;
-      flex-wrap: wrap;
+      justify-content: center;
+      transition: 0.2s;
     }
 
-    .footer-link {
-      color: #4b5563;
-      font-size: 12px;
+    .social-icon:hover {
+      background: var(--color-lime);
     }
 
-    .footer-auth {
-      margin-left: auto;
+    .footer-bottom {
+      border-top: 1px solid #eee;
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: #888;
+      font-size: 13px;
     }
 
-    .footer-auth button {
-      padding: 7px 14px;
-      border-radius: 999px;
-      border: 1px solid #111827;
-      background: #111827;
-      color: #f9fafb;
-      font-size: 12px;
-      cursor: pointer;
-      transition: background var(--transition-fast),
-        color var(--transition-fast),
-        transform var(--transition-fast),
-        box-shadow var(--transition-fast);
+    @media (max-width: 900px) {
+      .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
-    .footer-auth button:hover {
-      background: #020617;
-      transform: translateY(-1px);
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.28);
-    }
-
-    @media (max-width: 720px) {
-      .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
+    @media (max-width: 640px) {
+      .footer-grid {
+        grid-template-columns: minmax(0, 1fr);
       }
 
-      .footer-auth {
-        margin-left: 0;
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
       }
     }
   </style>
 </head>
 <body>
   <div class="page">
-    <header class="hero">
-      <div class="container">
-        <div class="hero-inner">
-          <div class="hero-left">
-            <div class="hero-badge">
-              <span>taam.menu</span>
-              <span>цифровые меню для заведений</span>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="logo">taam.menu</div>
+        <nav class="nav-desktop">
+          <a href="#">Каталог</a>
+          <a href="#">Как это работает?</a>
+          <a href="#">Преимущества</a>
+          <a href="#">Тарифы</a>
+          <a href="#">О нас</a>
+        </nav>
+        <div class="header-btn-wrap">
+          <a href="#" class="btn-login-yellow">
+            Войти
+            <div class="login-icon-circle">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="black"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
             </div>
-            <h1 class="hero-title">
-              Цифровое меню с QR‑кодом<br />за один вечер
-            </h1>
-            <p class="hero-subtitle">
-              Гость открывает меню по QR‑коду, быстро выбирает блюда, а вы управляете позициями и ценами без перепечатки бумажных листов.
-            </p>
-            <div class="hero-actions">
-              <button class="btn-primary">
-                Запустить меню
-                <span>→</span>
-              </button>
-              <button class="btn-ghost">
-                Посмотреть пример меню
-                <span>↗</span>
-              </button>
-            </div>
-            <div class="hero-meta">
-              <div class="hero-meta-item">
-                <span>⚡</span>
-                <span>Старт за 1 день</span>
+          </a>
+        </div>
+        <button class="burger" type="button" aria-label="Открыть меню">
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="mobile-menu" class="mobile-menu">
+        <ul>
+          <li><a href="#">Каталог</a></li>
+          <li><a href="#">Как это работает?</a></li>
+          <li><a href="#">Преимущества</a></li>
+          <li><a href="#">Тарифы</a></li>
+          <li><a href="#">О нас</a></li>
+          <li>
+            <a href="#" class="btn-login-yellow" style="justify-content: center; width: 100%;">
+              Войти
+              <div class="login-icon-circle">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
               </div>
-              <div class="hero-meta-item">
-                <span>📱</span>
-                <span>Удобно с телефона</span>
-              </div>
-              <div class="hero-meta-item">
-                <span>🧾</span>
-                <span>Без перепечатки бумажек</span>
-              </div>
-            </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="version-badge">
+            <span class="version-dot"></span>
+            Новая версия 2.0 уже доступна
           </div>
-          <div class="hero-visual">
-            <div class="hero-visual-inner">
-              <div class="hero-visual-menu">
-                <div class="hero-visual-menu-header">
-                  <div class="hero-visual-menu-title">Меню «taam cafe»</div>
-                  <div class="hero-visual-menu-tag">QR‑меню</div>
-                </div>
-                <div class="hero-visual-menu-item">
-                  <div>
-                    <div class="hero-visual-menu-item-name">Боул с лососем</div>
-                    <div class="hero-visual-menu-item-meta">250 г · холодное</div>
-                  </div>
-                  <div class="hero-visual-menu-item-price">17,90</div>
-                </div>
-                <div class="hero-visual-menu-item">
-                  <div>
-                    <div class="hero-visual-menu-item-name">Крем‑суп тыквенный</div>
-                    <div class="hero-visual-menu-item-meta">300 мл · горячее</div>
-                  </div>
-                  <div class="hero-visual-menu-item-price">8,50</div>
-                </div>
-                <div class="hero-visual-menu-item">
-                  <div>
-                    <div class="hero-visual-menu-item-name">Лимонад маракуйя</div>
-                    <div class="hero-visual-menu-item-meta">400 мл · напитки</div>
-                  </div>
-                  <div class="hero-visual-menu-item-price">5,90</div>
+          <h1 class="hero-title">
+            Меню, которое <br />
+            <span class="highlight-underline">
+              всегда актуально
+              <svg viewBox="0 0 200 9" preserveAspectRatio="none">
+                <path
+                  d="M2.00025 7.00002C48.6987 2.37682 120.916 -2.46419 198.001 2.50002"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  fill="none"
+                />
+              </svg>
+            </span>
+          </h1>
+          <p class="hero-desc">
+            <strong>taam.menu</strong> — сервис для создания цифровых меню для ресторанов.
+            Дайте гостям доступ к меню по QR‑коду и привлекайте новых клиентов через онлайн‑каталог.
+          </p>
+          <div class="hero-buttons">
+            <a href="#" class="btn-pill">
+              Создать меню
+              <span class="btn-icon-circle">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </span>
+            </a>
+            <a
+              href="https://primernoe.taam.menu/"
+              class="btn-pill btn-pill--pink"
+              target="_blank"
+              rel="noopener"
+            >
+              Посмотреть пример
+              <span class="btn-icon-circle">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </span>
+            </a>
+          </div>
+          <div class="hero-meta">
+            <div class="hero-meta-item">⚡ Запуск за 1 день</div>
+            <div class="hero-meta-item">📱 Удобно с телефона</div>
+            <div class="hero-meta-item">🧾 Без перепечатки меню</div>
+          </div>
+        </div>
+        <div class="mockup-wrapper">
+          <div class="blob-lime"></div>
+          <div class="blob-pink"></div>
+          <div class="phone-card">
+            <div class="phone-screen">
+              <div class="qr-code-overlay">
+                <div class="qr-img-placeholder"></div>
+              </div>
+              <div class="skeleton-header"></div>
+              <div class="skeleton-banner"></div>
+              <div class="skeleton-row">
+                <div class="skeleton-img"></div>
+                <div class="skeleton-text">
+                  <div style="width: 80%"></div>
+                  <div style="width: 40%"></div>
                 </div>
               </div>
-              <div class="hero-visual-qr">
-                <div class="hero-visual-qr-badge">Гость наводит камеру</div>
-                <div class="hero-visual-qr-title">Меню всегда под рукой</div>
-                <div class="hero-visual-qr-meta">
-                  QR‑код на столах, ссылка в соцсетях и профиле заведения.
+              <div class="skeleton-row">
+                <div class="skeleton-img"></div>
+                <div class="skeleton-text">
+                  <div style="width: 70%"></div>
+                  <div style="width: 50%"></div>
                 </div>
-                <div class="hero-visual-qr-preview">
-                  <div class="hero-visual-qr-code"></div>
-                  <div class="hero-visual-qr-link">
-                    <span>taam.menu/your-cafe</span>
-                  </div>
+              </div>
+              <div class="skeleton-row">
+                <div class="skeleton-img"></div>
+                <div class="skeleton-text">
+                  <div style="width: 60%"></div>
+                  <div style="width: 30%"></div>
                 </div>
+              </div>
+              <div style="padding: 15px; margin-top: 20px;">
+                <div style="background: black; height: 40px; border-radius: 8px; width: 100%;"></div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </header>
+    </section>
 
     <main>
       <!-- КАТАЛОГ ЗАВЕДЕНИЙ + ФИЛЬТРЫ СВЕРХУ -->
@@ -1463,30 +1844,94 @@
           </div>
           <div class="catalog-inner">
             <div class="catalog-filters">
-              <button class="filter-pill filter-pill--active">
-                <span>📍</span>
-                По городу
-              </button>
-              <button class="filter-pill">
-                <span>🍽</span>
-                По типу кухни
-              </button>
-              <button class="filter-pill">
-                <span>🏷</span>
-                По тегам (халяль, детская, Wi‑Fi)
-              </button>
-              <button class="filter-pill">
-                <span>🛵</span>
-                Есть доставка
-              </button>
-              <button class="filter-pill">
-                <span>☕</span>
-                Кофейни рядом
-              </button>
+              <details class="filter-group" data-filter-group="city">
+                <summary class="filter-pill">
+                  <span>📍</span>
+                  По городу
+                </summary>
+                <div class="filter-panel">
+                  <button class="filter-option is-active" data-filter-value="all" type="button">
+                    Все города
+                  </button>
+                  <button class="filter-option" data-filter-value="Минск" type="button">Минск</button>
+                  <button class="filter-option" data-filter-value="Гродно" type="button">Гродно</button>
+                </div>
+              </details>
+              <details class="filter-group" data-filter-group="cuisine">
+                <summary class="filter-pill">
+                  <span>🍽</span>
+                  По типу кухни
+                </summary>
+                <div class="filter-panel">
+                  <button class="filter-option is-active" data-filter-value="all" type="button">
+                    Все кухни
+                  </button>
+                  <button class="filter-option" data-filter-value="Авторская кухня" type="button">
+                    Авторская кухня
+                  </button>
+                  <button class="filter-option" data-filter-value="Стритфуд" type="button">
+                    Стритфуд
+                  </button>
+                  <button class="filter-option" data-filter-value="Итальянская" type="button">
+                    Итальянская
+                  </button>
+                </div>
+              </details>
+              <details class="filter-group" data-filter-group="tags">
+                <summary class="filter-pill">
+                  <span>🏷</span>
+                  По тегам (халяль, детская, Wi‑Fi)
+                </summary>
+                <div class="filter-panel">
+                  <button class="filter-option is-active" data-filter-value="all" type="button">
+                    Все теги
+                  </button>
+                  <button class="filter-option" data-filter-value="Завтраки" type="button">Завтраки</button>
+                  <button class="filter-option" data-filter-value="Wi‑Fi" type="button">Wi‑Fi</button>
+                  <button class="filter-option" data-filter-value="Халяль" type="button">Халяль</button>
+                  <button class="filter-option" data-filter-value="Детская зона" type="button">
+                    Детская зона
+                  </button>
+                </div>
+              </details>
+              <details class="filter-group" data-filter-group="delivery">
+                <summary class="filter-pill">
+                  <span>🛵</span>
+                  Есть доставка
+                </summary>
+                <div class="filter-panel">
+                  <button class="filter-option is-active" data-filter-value="all" type="button">
+                    Любой формат
+                  </button>
+                  <button class="filter-option" data-filter-value="yes" type="button">Есть доставка</button>
+                  <button class="filter-option" data-filter-value="no" type="button">Только офлайн</button>
+                </div>
+              </details>
+              <details class="filter-group" data-filter-group="type">
+                <summary class="filter-pill">
+                  <span>☕</span>
+                  Кофейни рядом
+                </summary>
+                <div class="filter-panel">
+                  <button class="filter-option is-active" data-filter-value="all" type="button">
+                    Все форматы
+                  </button>
+                  <button class="filter-option" data-filter-value="Кофейня" type="button">Кофейни</button>
+                  <button class="filter-option" data-filter-value="Пиццерия" type="button">Пиццерии</button>
+                  <button class="filter-option" data-filter-value="Бургерная" type="button">Бургерные</button>
+                </div>
+              </details>
             </div>
 
             <div class="catalog-grid">
-              <article class="place-card">
+              <article
+                class="place-card"
+                data-city="Минск"
+                data-cuisine="Авторская кухня"
+                data-tags="Завтраки,Кофе,Wi‑Fi"
+                data-delivery="no"
+                data-type="Кофейня"
+              >
                 <div class="place-card-top">
                   <div class="place-card-logo"></div>
                   <div class="place-card-main">
@@ -1510,7 +1955,14 @@
                 </div>
               </article>
 
-              <article class="place-card">
+              <article
+                class="place-card"
+                data-city="Минск"
+                data-cuisine="Стритфуд"
+                data-tags="Доставка,Навынос,Парковка"
+                data-delivery="yes"
+                data-type="Бургерная"
+              >
                 <div class="place-card-top">
                   <div class="place-card-logo" style="background:linear-gradient(135deg,#bbf7d0,#4ade80);"></div>
                   <div class="place-card-main">
@@ -1534,7 +1986,14 @@
                 </div>
               </article>
 
-              <article class="place-card">
+              <article
+                class="place-card"
+                data-city="Гродно"
+                data-cuisine="Итальянская"
+                data-tags="Детская зона,Халяль"
+                data-delivery="yes"
+                data-type="Пиццерия"
+              >
                 <div class="place-card-top">
                   <div class="place-card-logo" style="background:linear-gradient(135deg,#ddd6fe,#a855f7);"></div>
                   <div class="place-card-main">
@@ -1979,21 +2438,26 @@
               <form class="contact-form">
                 <div>
                   <div class="field-label">Имя</div>
-                  <input class="field-input" type="text" placeholder="Как к вам обращаться?" />
+                  <input class="field-input" type="text" name="name" placeholder="Как к вам обращаться?" />
                 </div>
                 <div class="field-row">
                   <div>
                     <div class="field-label">Телефон или мессенджер</div>
-                    <input class="field-input" type="text" placeholder="+375…" />
+                    <input class="field-input" type="text" name="contact" placeholder="+375…" />
                   </div>
                   <div>
                     <div class="field-label">Название заведения</div>
-                    <input class="field-input" type="text" placeholder="Кафе, бар, кофейня…" />
+                    <input class="field-input" type="text" name="venue" placeholder="Кафе, бар, кофейня…" />
                   </div>
                 </div>
                 <div>
                   <div class="field-label">Комментарий</div>
-                  <textarea class="field-textarea" rows="3" placeholder="Кратко опишите, как сейчас работает меню и что хотите улучшить."></textarea>
+                  <textarea
+                    class="field-textarea"
+                    name="message"
+                    rows="3"
+                    placeholder="Кратко опишите, как сейчас работает меню и что хотите улучшить."
+                  ></textarea>
                 </div>
                 <div class="contact-submit">
                   <button type="submit" class="btn-primary">
@@ -2013,23 +2477,52 @@
 
     <!-- ФУТЕР -->
     <footer>
-      <div class="container">
-        <div class="footer-inner">
-          <div class="footer-brand">
-            <div class="footer-logo">taam.menu</div>
-            <div class="footer-email">hello@taam.menu</div>
-            <div class="footer-legal">
-              ООО «Таам Меню». ИНН / УНП · Налоговая информация и юридический адрес. Все права защищены.
+      <div class="footer-shell">
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-col footer-brand">
+              <div class="footer-logo">taam.menu</div>
+              <div class="footer-email">hello@taam.menu</div>
+              <div>
+                Цифровые меню для кафе и ресторанов — обновления за пару минут и доступ по QR‑коду.
+              </div>
+              <div class="social-links">
+                <a href="#" class="social-icon" aria-label="Telegram">✈️</a>
+                <a href="#" class="social-icon" aria-label="Instagram">📷</a>
+                <a href="#" class="social-icon" aria-label="Facebook">👍</a>
+              </div>
+            </div>
+            <div class="footer-col">
+              <h3>Навигация</h3>
+              <ul>
+                <li><a href="#">Каталог</a></li>
+                <li><a href="#">Как это работает?</a></li>
+                <li><a href="#">Преимущества</a></li>
+                <li><a href="#">Тарифы</a></li>
+                <li><a href="#">О нас</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h3>Продукт</h3>
+              <ul>
+                <li><a href="#">Создать меню</a></li>
+                <li><a href="https://primernoe.taam.menu/" target="_blank" rel="noopener">Посмотреть пример</a></li>
+                <li><a href="#">Заказать консультацию</a></li>
+                <li><a href="#">Войти</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h3>Контакты</h3>
+              <ul>
+                <li>Минск, Беларусь</li>
+                <li>+375 29 000‑00‑00</li>
+                <li>Поддержка 10:00–20:00</li>
+              </ul>
             </div>
           </div>
-          <nav class="footer-nav">
-            <a href="#" class="footer-link">Каталог заведений</a>
-            <a href="#" class="footer-link">Как это работает</a>
-            <a href="#" class="footer-link">Тарифы</a>
-            <a href="#" class="footer-link">Поддержка</a>
-          </nav>
-          <div class="footer-auth">
-            <button type="button">Войти</button>
+          <div class="footer-bottom">
+            <span>© 2024 taam.menu. Все права защищены.</span>
+            <span>Политика конфиденциальности · Оферта</span>
           </div>
         </div>
       </div>
@@ -2054,6 +2547,78 @@
     backToTop.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
+
+    // Мобильное меню
+    const burgerButton = document.querySelector(".burger");
+    const mobileMenu = document.getElementById("mobile-menu");
+    if (burgerButton && mobileMenu) {
+      burgerButton.addEventListener("click", () => {
+        const isVisible = mobileMenu.style.display === "block";
+        mobileMenu.style.display = isVisible ? "none" : "block";
+      });
+    }
+
+    // Фильтры каталога
+    const filterGroups = document.querySelectorAll(".filter-group");
+    const placeCards = document.querySelectorAll(".place-card");
+    const activeFilters = {};
+
+    filterGroups.forEach((group) => {
+      activeFilters[group.dataset.filterGroup] = "all";
+      const options = group.querySelectorAll(".filter-option");
+      options.forEach((option) => {
+        option.addEventListener("click", () => {
+          options.forEach((btn) => btn.classList.remove("is-active"));
+          option.classList.add("is-active");
+          activeFilters[group.dataset.filterGroup] = option.dataset.filterValue;
+          group.open = false;
+          applyFilters();
+        });
+      });
+    });
+
+    const parseTags = (value) =>
+      value
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean);
+
+    const matchesFilter = (card, group, value) => {
+      if (value === "all") {
+        return true;
+      }
+      const dataValue = card.dataset[group];
+      if (!dataValue) {
+        return false;
+      }
+      if (group === "tags") {
+        return parseTags(dataValue).includes(value);
+      }
+      return dataValue === value;
+    };
+
+    const applyFilters = () => {
+      placeCards.forEach((card) => {
+        const isMatch = Object.entries(activeFilters).every(([group, value]) =>
+          matchesFilter(card, group, value)
+        );
+        card.classList.toggle("is-hidden", !isMatch);
+      });
+    };
+
+    applyFilters();
+
+    // Форма: вывод данных в консоль
+    const contactForm = document.querySelector(".contact-form");
+    if (contactForm) {
+      contactForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(contactForm);
+        const payload = Object.fromEntries(formData.entries());
+        console.log("Данные формы:", payload);
+        contactForm.reset();
+      });
+    }
   </script>
 </body>
 </html>
