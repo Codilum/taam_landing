@@ -149,10 +149,13 @@
     }
 
     .mobile-menu {
-      display: none;
-      padding: 20px;
-      border-top: 2px solid var(--color-black);
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0 20px;
+      border-top: 1px solid var(--border-soft);
       background: #ffffff;
+      transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
     }
 
     .mobile-menu ul {
@@ -161,6 +164,12 @@
       gap: 15px;
       font-weight: 500;
       font-size: 18px;
+    }
+
+    .mobile-menu.is-open {
+      max-height: 360px;
+      opacity: 1;
+      padding: 20px;
     }
 
     /* КНОПКИ */
@@ -248,6 +257,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .btn-login-yellow:hover .login-icon-circle {
+      transform: rotate(45deg);
     }
 
     /* HERO */
@@ -385,11 +399,11 @@
       background: var(--color-white);
       border: 1px solid #111827;
       border-radius: 30px;
-      padding: 22px;
+      padding: 30px;
       box-shadow: 12px 12px 0px 0px rgba(17, 24, 39, 0.12);
       transform: rotate(-3deg);
       transition: transform 0.3s;
-      max-width: 360px;
+      max-width: 460px;
     }
 
     .phone-card:hover {
@@ -768,14 +782,6 @@
     }
 
     @media (max-width: 980px) {
-      .catalog-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .filters-panel {
-        order: 2;
-      }
-
       .cards-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -788,88 +794,119 @@
     }
 
     .place-card {
-      background: #f9fafb;
-      border-radius: 16px;
-      padding: 14px;
+      position: relative;
+      border-radius: 20px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.02);
+      gap: 10px;
+      min-height: 280px;
+      overflow: hidden;
+      color: #ffffff;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.1);
       transition: transform var(--transition-fast),
-        box-shadow var(--transition-fast),
-        background var(--transition-fast);
+        box-shadow var(--transition-fast);
     }
 
     .place-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
-      background: #ffffff;
+      box-shadow: 0 20px 44px rgba(15, 23, 42, 0.18);
     }
 
     .place-card.is-hidden {
       display: none;
     }
 
-    .place-card-top {
+    .place-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: var(--card-image);
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.75);
+      z-index: 0;
+    }
+
+    .place-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.75));
+      z-index: 0;
+    }
+
+    .place-card-content {
+      position: relative;
+      z-index: 1;
       display: flex;
-      gap: 10px;
-      align-items: flex-start;
+      flex-direction: column;
+      height: 100%;
+      gap: 12px;
     }
 
-    .place-card-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #fee2e2, #fecaca);
-    }
-
-    .place-card-main {
-      flex: 1;
-    }
-
-    .place-card-name {
-      font-size: 14px;
+    .place-card-badges {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
       font-weight: 600;
-      margin-bottom: 2px;
     }
 
-    .place-card-meta {
-      font-size: 11px;
-      color: var(--text-muted);
+    .place-card-badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #111827;
     }
 
     .place-card-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 6px;
     }
 
     .tag-pill {
-      font-size: 10px;
-      padding: 3px 7px;
+      font-size: 11px;
+      padding: 4px 8px;
       border-radius: 999px;
-      background: #eef2ff;
-      color: #4338ca;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      color: #ffffff;
       white-space: nowrap;
     }
 
     .place-card-footer {
+      margin-top: auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 4px;
-      font-size: 11px;
-      color: var(--text-muted);
+      font-size: 16px;
+      font-weight: 600;
     }
 
     .place-card-link {
-      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #ffffff;
       font-weight: 600;
+    }
+
+    .place-card-link span {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
       color: #111827;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .place-card-link:hover span {
+      transform: rotate(45deg);
     }
 
     /* 3) КАК СДЕЛАТЬ + HOW-CARD */
@@ -1192,9 +1229,9 @@
 
     .advantages-list {
       display: flex;
-      gap: 14px;
+      gap: 18px;
       overflow-x: auto;
-      padding-bottom: 6px;
+      padding-bottom: 10px;
       scroll-snap-type: x mandatory;
     }
 
@@ -1208,15 +1245,16 @@
     }
 
     .adv-card {
-      border-radius: 14px;
-      padding: 10px 11px;
+      border-radius: 20px;
+      padding: 18px;
       background: rgba(15, 23, 42, 0.9);
       border: 1px solid rgba(148, 163, 184, 0.6);
       display: grid;
-      grid-template-columns: 28px minmax(0, 1fr);
-      gap: 10px;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
       align-items: flex-start;
-      min-width: 260px;
+      min-width: 280px;
+      aspect-ratio: 1 / 1;
       scroll-snap-align: start;
     }
 
@@ -1467,54 +1505,45 @@
     }
 
     .contact-title {
-      font-size: 22px;
+      font-size: 20px;
       letter-spacing: -0.04em;
       margin: 0 0 6px;
     }
 
     .contact-text {
-      font-size: 15px;
-      color: #6b7280;
+      font-size: 13px;
+      color: #9ca3af;
       margin: 0 0 12px;
     }
 
     .contact-badges {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 14px;
+      gap: 6px;
+      margin-bottom: 10px;
+      font-size: 11px;
     }
 
     .contact-badge {
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: #ffffff;
-      border: 1px solid var(--border-soft);
-      font-size: 12px;
-      color: #4b5563;
-      min-width: 160px;
-    }
-
-    .contact-badge strong {
-      display: block;
-      font-size: 13px;
-      color: #111827;
-      margin-bottom: 4px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.7);
     }
 
     .contact-form {
-      background: #ffffff;
+      background: rgba(15, 23, 42, 0.9);
       border-radius: 18px;
-      padding: 18px 18px 16px;
-      border: 1px solid var(--border-soft);
+      padding: 14px 14px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .field-label {
-      font-size: 12px;
-      color: #6b7280;
+      font-size: 11px;
+      color: #9ca3af;
       margin-bottom: 2px;
     }
 
@@ -1628,7 +1657,8 @@
       border-radius: 24px;
       background: #f4f5fb;
       border: 1px solid var(--border-soft);
-      margin-bottom: 18px;
+      margin: 0 auto 18px;
+      max-width: 1100px;
     }
 
     .footer-grid--new .logo {
@@ -1712,7 +1742,7 @@
             </div>
           </a>
         </div>
-        <button class="burger" type="button" aria-label="Открыть меню">
+        <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false">
           <svg
             width="32"
             height="32"
@@ -1932,33 +1962,29 @@
             </button>
           </div>
 
-          <div class="catalog-grid">
-            <aside class="filters-panel" id="filtersPanel" style="display:none;">
-              <div class="filters-head">
-                <div class="filters-title">Фильтры</div>
-                <button class="link-soft" id="clearFilters" type="button">Сбросить</button>
-              </div>
+          <div class="filters-panel" id="filtersPanel" style="display:none;">
+            <div class="filters-head">
+              <div class="filters-title">Фильтры</div>
+              <button class="link-soft" id="clearFilters" type="button">Сбросить</button>
+            </div>
 
-              <div class="filter-group">
-                <span class="filter-label">Город</span>
-                <div class="filter-buttons" id="cityFilters"></div>
-              </div>
+            <div class="filter-group">
+              <span class="filter-label">Город</span>
+              <div class="filter-buttons" id="cityFilters"></div>
+            </div>
 
-              <div class="filter-group">
-                <span class="filter-label">Тип заведения</span>
-                <div class="filter-buttons" id="typeFilters"></div>
-              </div>
+            <div class="filter-group">
+              <span class="filter-label">Тип заведения</span>
+              <div class="filter-buttons" id="typeFilters"></div>
+            </div>
 
-              <div class="filter-group">
-                <span class="filter-label">Теги</span>
-                <div class="filter-buttons" id="tagFilters"></div>
-              </div>
-            </aside>
-
-            <div>
-              <div class="cards-grid" id="catalogCards"></div>
+            <div class="filter-group">
+              <span class="filter-label">Теги</span>
+              <div class="filter-buttons" id="tagFilters"></div>
             </div>
           </div>
+
+          <div class="cards-grid" id="catalogCards"></div>
         </div>
       </section>
 
@@ -2366,18 +2392,9 @@
                   Оставьте заявку, и команда подскажет, как лучше запустить цифровое меню именно в вашем формате — кафе, баре, кофейне или пиццерии.
                 </p>
                 <div class="contact-badges">
-                  <span class="contact-badge">
-                    <strong>Подбор тарифа</strong>
-                    Поможем выбрать оптимальный пакет под формат заведения.
-                  </span>
-                  <span class="contact-badge">
-                    <strong>Подготовка меню</strong>
-                    Подскажем, как быстро собрать позиции и фото.
-                  </span>
-                  <span class="contact-badge">
-                    <strong>Ответ в мессенджере</strong>
-                    На связи и отвечаем без долгих ожиданий.
-                  </span>
+                  <span class="contact-badge">Подберём тариф под задачи</span>
+                  <span class="contact-badge">Поможем подготовить меню</span>
+                  <span class="contact-badge">Ответим в мессенджере</span>
                 </div>
               </div>
               <form class="contact-form">
@@ -2496,48 +2513,59 @@
     const mobileMenu = document.getElementById("mobile-menu");
     if (burgerButton && mobileMenu) {
       burgerButton.addEventListener("click", () => {
-        const isVisible = mobileMenu.style.display === "block";
-        mobileMenu.style.display = isVisible ? "none" : "block";
+        const isOpen = mobileMenu.classList.toggle("is-open");
+        burgerButton.setAttribute("aria-expanded", String(isOpen));
       });
     }
 
     // Каталог: поиск, фильтры, сортировка
     const catalogData = [
       {
-        name: "taam cafe",
-        city: "Минск",
-        type: "Кофейня",
-        cuisine: "Авторская кухня",
-        tags: ["Завтраки", "Кофе", "Wi‑Fi"],
-        status: "Открыто до 23:00",
-        meta: "Минск · авторская кухня · 500 м от вас",
+        name: "Мона",
+        type: "Ресторан",
+        tags: [
+          "Халяль",
+          "Европейская кухня",
+          "ПП",
+          "Доставка",
+          "Место для молитвы",
+          "Удобная парковка",
+          "Без музыки",
+          "Безналичная оплата",
+        ],
+        city: "Магас",
+        img: "https://taam.menu/uploads/restaurant_10_20251223180356_ChatGPT%20Image%2023%20%D0%B4%D0%B5%D0%BA.%202025%20%D0%B3.,%2006_37_25.png",
+        link: "https://mona.taam.menu",
         popularity: 92,
         createdAt: "2024-04-12",
-        logoStyle: "",
       },
       {
-        name: "Burger&Street",
-        city: "Минск",
-        type: "Бургерная",
-        cuisine: "Стритфуд",
-        tags: ["Доставка", "Навынос", "Парковка"],
-        status: "Доставка 30–45 мин",
-        meta: "Стритфуд · доставка и навынос",
-        popularity: 88,
-        createdAt: "2024-03-05",
-        logoStyle: "background:linear-gradient(135deg,#bbf7d0,#4ade80);",
+        name: "Sad",
+        type: "Кафе",
+        tags: ["Wi-Fi", "Завтраки"],
+        city: "Магас",
+        img: "https://taam.menu/uploads/restaurant_10_20251223180356_ChatGPT%20Image%2023%20%D0%B4%D0%B5%D0%BA.%202025%20%D0%B3.,%2006_37_25.png",
+        link: "https://sad.taam.menu",
+        popularity: 86,
+        createdAt: "2024-03-18",
       },
       {
-        name: "Family Pizza",
-        city: "Гродно",
-        type: "Пиццерия",
-        cuisine: "Итальянская",
-        tags: ["Детская зона", "Халяль"],
-        status: "Сегодня · акции",
-        meta: "Пицца · детская зона · центр",
-        popularity: 80,
-        createdAt: "2024-02-15",
-        logoStyle: "background:linear-gradient(135deg,#ddd6fe,#a855f7);",
+        name: "Primernoe",
+        type: "Кафе",
+        tags: [
+          "Без музыки",
+          "Халяль",
+          "Wi‑Fi",
+          "Доставка",
+          "Место для молитвы",
+          "Удобная парковка",
+          "Безналичная оплата",
+        ],
+        city: "Назрань",
+        img: "https://taam.menu/uploads/restaurant_10_20251223180356_ChatGPT%20Image%2023%20%D0%B4%D0%B5%D0%BA.%202025%20%D0%B3.,%2006_37_25.png",
+        link: "https://primernoe.taam.menu",
+        popularity: 90,
+        createdAt: "2024-02-20",
       },
     ];
 
@@ -2616,13 +2644,7 @@
       }
       if (activeFilters.search) {
         const query = normalize(activeFilters.search);
-        const haystack = [
-          item.name,
-          item.city,
-          item.type,
-          item.cuisine,
-          item.tags.join(" "),
-        ]
+        const haystack = [item.name, item.city, item.type, item.tags.join(" ")]
           .join(" ")
           .toLowerCase();
         if (!haystack.includes(query)) {
@@ -2645,23 +2667,22 @@
         catalogCards.innerHTML = filtered
           .map(
             (item) => `
-              <article class="place-card">
-                <div class="place-card-top">
-                  <div class="place-card-logo" style="${item.logoStyle}"></div>
-                  <div class="place-card-main">
-                    <div class="place-card-name">${item.name}</div>
-                    <div class="place-card-meta">${item.meta}</div>
-                    <div class="place-card-tags">
-                      ${item.tags.map((tag) => `<span class="tag-pill">${tag}</span>`).join("")}
-                    </div>
+              <article class="place-card" style="--card-image: url('${item.img}');">
+                <div class="place-card-content">
+                  <div class="place-card-badges">
+                    <span class="place-card-badge">${item.type}</span>
+                    <span class="place-card-badge">${item.city}</span>
                   </div>
-                </div>
-                <div class="place-card-footer">
-                  <span>${item.status}</span>
-                  <a href="#" class="place-card-link">
-                    Открыть меню
-                    <span>↗</span>
-                  </a>
+                  <div class="place-card-tags">
+                    ${item.tags.map((tag) => `<span class="tag-pill">${tag}</span>`).join("")}
+                  </div>
+                  <div class="place-card-footer">
+                    <span>${item.name}</span>
+                    <a href="${item.link}" class="place-card-link" target="_blank" rel="noopener">
+                      Перейти
+                      <span>↗</span>
+                    </a>
+                  </div>
                 </div>
               </article>
             `
@@ -2709,6 +2730,27 @@
       filtersPanel.style.display = window.innerWidth >= 980 ? "block" : "none";
     }
     renderCatalog();
+
+    // Преимущества: горизонтальный скролл от вертикального
+    const advantagesSection = document.querySelector(".advantages");
+    const advantagesList = document.querySelector(".advantages-list");
+    const handleAdvantagesScroll = () => {
+      if (!advantagesSection || !advantagesList) {
+        return;
+      }
+      const sectionTop = advantagesSection.offsetTop;
+      const sectionHeight = advantagesSection.offsetHeight;
+      const windowHeight = window.innerHeight;
+      const start = sectionTop - windowHeight * 0.6;
+      const end = sectionTop + sectionHeight;
+      const progress = Math.min(Math.max((window.scrollY - start) / (end - start), 0), 1);
+      const maxScroll = advantagesList.scrollWidth - advantagesList.clientWidth;
+      advantagesList.scrollLeft = maxScroll * progress;
+    };
+
+    window.addEventListener("scroll", handleAdvantagesScroll);
+    window.addEventListener("resize", handleAdvantagesScroll);
+    handleAdvantagesScroll();
 
     // Форма: вывод данных в консоль
     const contactForm = document.querySelector(".contact-form");
