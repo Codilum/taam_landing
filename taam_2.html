@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <title>taam.menu — Цифровые меню для кафе и ресторанов</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
   <style>
     :root {
       --bg-main: #f6f6fb;
@@ -24,6 +30,14 @@
       --shadow-card: 0 10px 30px rgba(15, 23, 42, 0.06);
       --transition-fast: 0.18s ease-out;
       --transition-med: 0.22s ease-out;
+      --color-black: #000000;
+      --color-white: #ffffff;
+      --color-lime: #ffeb5a;
+      --color-pink: #ff66cc;
+      --color-yellow: #ffeb3b;
+      --font-main: "Inter", sans-serif;
+      --font-display: "Unbounded", sans-serif;
+      --shadow-hard: 6px 6px 0px 0px var(--color-black);
     }
 
     * {
@@ -32,11 +46,11 @@
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
+      font-family: var(--font-main);
       background: var(--bg-main);
       color: var(--text-main);
       line-height: 1.5;
+      font-size: 16px;
     }
 
     img {
@@ -49,6 +63,18 @@
       text-decoration: none;
     }
 
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     .page {
       min-height: 100vh;
       display: flex;
@@ -57,81 +83,478 @@
 
     .container {
       width: 100%;
-      max-width: 1120px;
+      max-width: 1240px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 24px;
     }
 
-    /* HERO (оставлен как есть по стилю, только чуть сглажены углы) */
+    h1,
+    h2,
+    h3 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+    }
 
-    .hero {
-      background: var(--bg-hero);
-      border-radius: 0 0 32px 32px;
-      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.12);
-      padding: 32px 0 40px;
+    /* HEADER */
+
+    .site-header {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 30;
+      background: transparent;
     }
 
-    .hero-inner {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: 32px;
+    .header-inner {
+      display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 14px 20px;
+      background: #111827;
+      border-radius: 20px;
+      color: #ffffff;
+      margin: 16px auto 0;
     }
 
-    .hero-badge {
+    .logo {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-desktop {
+      display: flex;
+      gap: 30px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #ffffff;
+    }
+
+    .nav-desktop a:hover {
+      text-decoration: underline;
+      text-decoration-color: var(--color-lime);
+      text-decoration-thickness: 3px;
+      text-underline-offset: 4px;
+    }
+
+    .site-header .btn-login-yellow {
+      background-color: var(--color-lime);
+    }
+
+    .header-btn-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .burger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #ffffff;
+    }
+
+    .mobile-menu {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      background: #111827;
+      color: #ffffff;
+      transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+    }
+
+    .mobile-menu ul {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      font-weight: 500;
+      font-size: 18px;
+    }
+
+    .mobile-menu.is-open {
+      max-height: 360px;
+      opacity: 1;
+      padding: 20px;
+    }
+
+    /* КНОПКИ */
+
+    .btn-pill {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 4px 10px;
+      justify-content: space-between;
+      background-color: var(--color-lime);
+      border: 2px solid transparent;
       border-radius: 999px;
-      background: var(--accent-soft);
-      color: #7c5a00;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
+      padding: 6px 6px 6px 24px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
       text-transform: uppercase;
-      margin-bottom: 14px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      text-decoration: none;
+      color: var(--color-black);
+      gap: 16px;
+      box-shadow: none;
+    }
+
+    .btn-pill:hover {
+      transform: scale(1.02);
+    }
+
+    .btn-pill:active {
+      transform: scale(0.98);
+    }
+
+    .btn-icon-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: none;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-pill:hover .btn-icon-circle {
+      transform: rotate(45deg);
+    }
+
+    .btn-pill--pink {
+      background-color: var(--color-pink);
+      color: #ffffff;
+    }
+
+    .btn-pill--pink .btn-icon-circle {
+      color: var(--color-black);
+    }
+
+    .btn-login-yellow {
+      background-color: var(--color-yellow);
+      padding: 6px 6px 6px 24px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      transition: transform 0.2s;
+      text-decoration: none;
+      color: var(--color-black);
+      border: 2px solid transparent;
+    }
+
+    .btn-login-yellow:hover {
+      transform: scale(1.02);
+    }
+
+    .login-icon-circle {
+      width: 34px;
+      height: 34px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .btn-login-yellow:hover .login-icon-circle {
+      transform: rotate(45deg);
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f6f6fb 0%, #edf0ff 45%, #fff9e2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 64px;
+      align-items: center;
+    }
+
+    .version-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 9999px;
+      padding: 6px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      font-family: var(--font-main);
+      color: #111;
+    }
+
+    .version-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--color-lime);
+      border-radius: 50%;
+      margin-right: 10px;
+      box-shadow: 0 0 8px var(--color-lime);
     }
 
     .hero-title {
-      font-size: 34px;
+      font-size: 64px;
       line-height: 1.1;
-      letter-spacing: -0.04em;
-      margin: 0 0 12px;
+      margin-bottom: 24px;
+      letter-spacing: -0.03em;
     }
 
-    .hero-subtitle {
-      font-size: 15px;
-      color: var(--text-muted);
-      max-width: 400px;
+    .highlight-underline {
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .highlight-underline svg {
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 12px;
+      z-index: -1;
+      color: var(--color-lime);
+    }
+
+    .hero-desc {
+      font-size: 19px;
+      color: #555;
+      margin-bottom: 32px;
+      max-width: 560px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
       margin-bottom: 18px;
     }
 
-    .hero-actions {
+    .hero-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
       align-items: center;
-      margin-bottom: 16px;
+      font-size: 14px;
+      color: #6b7280;
     }
+
+    .hero-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #f3f4ff;
+    }
+
+    .mockup-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .blob-lime {
+      position: absolute;
+      top: -20px;
+      right: 20px;
+      width: 280px;
+      height: 280px;
+      background: var(--color-lime);
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.6;
+      z-index: 0;
+    }
+
+    .blob-pink {
+      position: absolute;
+      bottom: -20px;
+      left: 40px;
+      width: 240px;
+      height: 240px;
+      background: var(--color-pink);
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.5;
+      z-index: 0;
+    }
+
+    .phone-card {
+      position: relative;
+      z-index: 1;
+      background: var(--color-white);
+      border: 1px solid #111827;
+      border-radius: 30px;
+      padding: 30px;
+      box-shadow: 12px 12px 0px 0px rgba(17, 24, 39, 0.12);
+      transform: rotate(-3deg);
+      transition: transform 0.3s;
+      max-width: 460px;
+    }
+
+    .phone-card:hover {
+      transform: rotate(0deg);
+    }
+
+    .phone-screen {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 9/16;
+      position: relative;
+    }
+
+    .qr-code-overlay {
+      position: absolute;
+      top: 50px;
+      right: 5px;
+      width: 80px;
+      height: 80px;
+      background: white;
+      padding: 4px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+    }
+
+    .qr-img-placeholder {
+      width: 100%;
+      height: 100%;
+      background-image: url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=taam.menu");
+      background-size: cover;
+      opacity: 0.9;
+    }
+
+    .skeleton-header {
+      height: 50px;
+      border-bottom: 1px solid #eee;
+      background: #fff;
+      margin-bottom: 15px;
+    }
+
+    .skeleton-banner {
+      height: 100px;
+      background: #eee;
+      margin: 0 15px 15px;
+      border-radius: 10px;
+    }
+
+    .skeleton-row {
+      display: flex;
+      gap: 10px;
+      padding: 0 15px;
+      margin-bottom: 10px;
+    }
+
+    .skeleton-img {
+      width: 50px;
+      height: 50px;
+      background: #eee;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .skeleton-text div {
+      height: 8px;
+      background: #eee;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+
+    .skeleton-text {
+      flex-grow: 1;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+        text-align: center;
+      }
+
+      .hero-title {
+        font-size: 42px;
+      }
+
+      .hero-desc {
+        margin: 0 auto 30px;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .mockup-wrapper {
+        margin-top: 40px;
+      }
+
+      .nav-desktop {
+        display: none;
+      }
+
+      .burger {
+        display: block;
+      }
+
+      .header-btn-wrap {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding: 90px 0 100px;
+      }
+
+      .hero-title {
+        font-size: 34px;
+      }
+
+      .btn-pill {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    /* SECTIONS */
 
     .btn-primary {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 10px 18px;
+      gap: 10px;
+      padding: 12px 22px;
       border-radius: 999px;
       border: none;
       cursor: pointer;
       background: var(--accent);
       color: #1b1300;
       font-weight: 600;
-      font-size: 14px;
-      box-shadow: 0 12px 30px rgba(250, 204, 21, 0.45);
+      font-size: 15px;
+      box-shadow: 0 16px 35px rgba(250, 204, 21, 0.4);
       transition: transform var(--transition-fast),
         box-shadow var(--transition-fast),
         background var(--transition-fast);
@@ -139,15 +562,15 @@
 
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 18px 40px rgba(250, 204, 21, 0.4);
+      box-shadow: 0 22px 45px rgba(250, 204, 21, 0.35);
       background: #ffd84f;
     }
 
     .btn-ghost {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 8px 14px;
+      gap: 8px;
+      padding: 10px 16px;
       border-radius: 999px;
       border: 1px dashed rgba(148, 163, 184, 0.8);
       background: #f9fafb;
@@ -165,214 +588,18 @@
       transform: translateY(-1px);
     }
 
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-      font-size: 12px;
-      color: #6b7280;
-    }
-
-    .hero-meta-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: #f3f4ff;
-    }
-
-    .hero-visual {
-      position: relative;
-      padding: 12px;
-      border-radius: 26px;
-      background: radial-gradient(circle at 0% 0%, #fff7d1 0, #e5f0ff 40%, #f9fafb 100%);
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.21);
-      overflow: hidden;
-    }
-
-    .hero-visual-inner {
-      border-radius: 18px;
-      background: #ffffff;
-      padding: 16px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: 14px;
-      align-items: flex-start;
-    }
-
-    .hero-visual-menu {
-      border-radius: 16px;
-      background: #f9fafb;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      font-size: 11px;
-    }
-
-    .hero-visual-menu-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-
-    .hero-visual-menu-title {
-      font-weight: 600;
-      font-size: 12px;
-    }
-
-    .hero-visual-menu-tag {
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 999px;
-      background: #e0f2fe;
-      color: #0369a1;
-    }
-
-    .hero-visual-menu-item {
-      display: grid;
-      grid-template-columns: minmax(0, 1.7fr) auto;
-      gap: 8px;
-      align-items: center;
-      padding: 6px 6px;
-      border-radius: 10px;
-      background: #ffffff;
-    }
-
-    .hero-visual-menu-item-name {
-      font-weight: 500;
-      font-size: 11px;
-    }
-
-    .hero-visual-menu-item-meta {
-      font-size: 10px;
-      color: #9ca3af;
-    }
-
-    .hero-visual-menu-item-price {
-      font-weight: 600;
-      font-size: 11px;
-    }
-
-    .hero-visual-qr {
-      border-radius: 16px;
-      background: #111827;
-      color: #f9fafb;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-visual-qr-badge {
-      font-size: 10px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(248, 250, 252, 0.08);
-      width: fit-content;
-    }
-
-    .hero-visual-qr-title {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: -0.03em;
-    }
-
-    .hero-visual-qr-meta {
-      font-size: 11px;
-      color: #9ca3af;
-    }
-
-    .hero-visual-qr-preview {
-      margin-top: 4px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .hero-visual-qr-code {
-      width: 56px;
-      height: 56px;
-      border-radius: 12px;
-      background: repeating-linear-gradient(
-          45deg,
-          #fefce8 0,
-          #fefce8 4px,
-          #facc15 4px,
-          #facc15 8px
-        ),
-        radial-gradient(circle at 0 0, #fef9c3, #f97316);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-visual-qr-code::after {
-      content: "";
-      position: absolute;
-      inset: 12px;
-      border-radius: 8px;
-      background: radial-gradient(circle at 30% 30%, #111827 0, #020617 50%);
-      box-shadow: inset 0 0 0 2px rgba(248, 250, 252, 0.35);
-    }
-
-    .hero-visual-qr-link {
-      flex: 1;
-      font-size: 11px;
-      padding: 6px 8px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.88);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-    }
-
-    .hero-visual-qr-link span {
-      display: block;
-      color: #e5e7eb;
-    }
-
-    @media (max-width: 860px) {
-      .hero-inner {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .hero-visual {
-        order: -1;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .hero {
-        padding: 20px 0 26px;
-        border-radius: 0 0 24px 24px;
-      }
-
-      .hero-title {
-        font-size: 26px;
-      }
-
-      .hero-visual-inner {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    /* SECTIONS */
-
     main {
       flex: 1;
-      padding: 32px 0 72px;
+      padding: 64px 0 110px;
     }
 
     section {
-      margin-bottom: 56px;
+      margin-bottom: 88px;
     }
 
     .section-header {
-      max-width: 720px;
-      margin-bottom: 22px;
+      max-width: 760px;
+      margin-bottom: 32px;
     }
 
     .section-kicker {
@@ -384,9 +611,13 @@
     }
 
     .section-title {
-      font-size: 24px;
+      font-size: 30px;
       letter-spacing: -0.04em;
-      margin: 0 0 6px;
+      margin: 0 0 8px;
+    }
+
+    .section-subtitle {
+      font-size: 16px;
     }
 
     .section-subtitle {
@@ -397,149 +628,317 @@
 
     /* 1) КАТАЛОГ + ФИЛЬТРЫ СВЕРХУ */
 
-    .catalog {
-      background: transparent;
+    .section--soft {
+      background: #f1f2f8;
+      border-radius: 28px;
+      padding: 40px 0;
     }
 
-    .catalog-inner {
-      background: var(--bg-card);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-card);
-      padding: 18px 18px 20px;
-    }
-
-    .catalog-filters {
+    .section-head {
       display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: flex-end;
+      margin-bottom: 24px;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 16px;
     }
 
-    .filter-pill {
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      background: #f9fafb;
-      font-size: 12px;
-      color: #4b5563;
-      cursor: pointer;
-      display: inline-flex;
+    .catalog-meta {
+      display: flex;
       align-items: center;
-      gap: 6px;
-      transition: background var(--transition-fast),
-        border-color var(--transition-fast),
-        color var(--transition-fast),
-        transform var(--transition-fast);
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
-    .filter-pill span {
+    .counter-pill {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--border-soft);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .select-soft {
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border-soft);
+      background: #fff;
+      font-size: 13px;
+    }
+
+    .catalog-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .search-wrap {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .input-soft {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border-soft);
+      background: #fff;
       font-size: 14px;
     }
 
-    .filter-pill--active {
-      background: #111827;
-      border-color: #111827;
-      color: #f9fafb;
-      transform: translateY(-1px);
+    .btn-soft {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 12px;
+      border: 1px solid var(--border-soft);
+      background: #fff;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-soft__icon {
+      display: inline-flex;
     }
 
     .catalog-grid {
       display: grid;
+      grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+      gap: 20px;
+    }
+
+    .filters-panel {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 16px;
+      border: 1px solid var(--border-soft);
+      margin-bottom: 8px;
+    }
+
+    .filters-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .filters-title {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .link-soft {
+      border: none;
+      background: none;
+      color: #4b5563;
+      cursor: pointer;
+      font-size: 12px;
+      text-decoration: underline;
+    }
+
+    .filter-group {
+      margin-bottom: 14px;
+    }
+
+    .filter-label {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-button {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #f9fafb;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .filter-button.is-active {
+      background: #111827;
+      border-color: #111827;
+      color: #fff;
+    }
+
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .cards-grid {
+      display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
+      gap: 20px;
+    }
+
+    @media (max-width: 1180px) {
+      .cards-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 980px) {
-      .catalog-grid {
+      .cards-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
     @media (max-width: 640px) {
-      .catalog-grid {
+      .cards-grid {
         grid-template-columns: minmax(0, 1fr);
       }
     }
 
     .place-card {
-      background: #f9fafb;
-      border-radius: 16px;
-      padding: 10px;
+      position: relative;
+      border-radius: 20px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.02);
+      gap: 10px;
+      min-height: 240px;
+      overflow: hidden;
+      color: #ffffff;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.1);
       transition: transform var(--transition-fast),
-        box-shadow var(--transition-fast),
-        background var(--transition-fast);
+        box-shadow var(--transition-fast);
     }
 
     .place-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
-      background: #ffffff;
+      box-shadow: 0 20px 44px rgba(15, 23, 42, 0.18);
     }
 
-    .place-card-top {
+    .place-card.is-hidden {
+      display: none;
+    }
+
+    .place-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: var(--card-image);
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.75);
+      z-index: 0;
+    }
+
+    .place-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.75));
+      z-index: 0;
+    }
+
+    .place-card-content {
+      position: relative;
+      z-index: 1;
       display: flex;
-      gap: 10px;
-      align-items: flex-start;
+      flex-direction: column;
+      height: 100%;
+      gap: 12px;
     }
 
-    .place-card-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #fee2e2, #fecaca);
-    }
-
-    .place-card-main {
-      flex: 1;
-    }
-
-    .place-card-name {
-      font-size: 14px;
+    .place-card-badges {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
       font-weight: 600;
-      margin-bottom: 2px;
     }
 
-    .place-card-meta {
-      font-size: 11px;
-      color: var(--text-muted);
+    .place-card-badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #111827;
+    }
+
+    .place-card-badge--type {
+      background: #ffeb5a;
+    }
+
+    .place-card-badge--city {
+      background: #90ff55;
     }
 
     .place-card-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 6px;
+    }
+
+    .place-card-tags-title {
+      display: block;
+      width: 100%;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.75);
     }
 
     .tag-pill {
-      font-size: 10px;
-      padding: 3px 7px;
+      font-size: 11px;
+      padding: 4px 8px;
       border-radius: 999px;
-      background: #eef2ff;
-      color: #4338ca;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      color: #ffffff;
       white-space: nowrap;
     }
 
     .place-card-footer {
+      margin-top: auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 4px;
-      font-size: 11px;
-      color: var(--text-muted);
+      font-size: 16px;
+      font-weight: 600;
     }
 
     .place-card-link {
-      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #ffffff;
       font-weight: 600;
+    }
+
+    .place-card-link span {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #ffeb5a;
       color: #111827;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .place-card-link:hover span {
+      transform: rotate(45deg);
     }
 
     /* 3) КАК СДЕЛАТЬ + HOW-CARD */
@@ -560,7 +959,7 @@
       background: #ffffff;
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-card);
-      padding: 18px 18px 16px;
+      padding: 24px 24px 20px;
       display: grid;
       grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.05fr);
       gap: 18px;
@@ -619,7 +1018,7 @@
     .how-card-right {
       position: relative;
       border-radius: var(--radius-lg);
-      padding: 18px 18px 16px;
+      padding: 22px 22px 18px;
       background: radial-gradient(circle at 0 0, #fff7c4 0, #ffe7c7 38%, #fee2e2 100%);
       overflow: hidden;
       box-shadow: var(--shadow-soft);
@@ -792,7 +1191,7 @@
       border-radius: var(--radius-lg);
       background: #050816;
       color: #e5e7eb;
-      padding: 16px 16px 14px;
+      padding: 20px 20px 18px;
       position: relative;
       overflow: hidden;
     }
@@ -833,11 +1232,11 @@
     /* 5) ПРЕИМУЩЕСТВА — ПОЛОСА ПО СКРОЛЛУ, БЕЗ АВТО-СЛАЙДЕРА */
 
     .advantages {
-      background: #050816;
-      border-radius: var(--radius-lg);
-      padding: 18px 18px 16px;
-      color: #e5e7eb;
-      box-shadow: var(--shadow-soft);
+      background: #f1f2f8;
+      border-radius: 28px;
+      padding: 28px;
+      color: #111827;
+      box-shadow: var(--shadow-card);
     }
 
     .advantages-header {
@@ -848,69 +1247,88 @@
       margin-bottom: 12px;
     }
 
+    .advantages-barcode {
+      width: 170px;
+      height: 42px;
+      background: repeating-linear-gradient(
+        90deg,
+        #111827 0,
+        #111827 4px,
+        transparent 4px,
+        transparent 8px
+      );
+      border-radius: 6px;
+      opacity: 0.9;
+    }
+
     .advantages-title {
-      font-size: 18px;
-      letter-spacing: -0.04em;
+      font-size: 26px;
+      letter-spacing: -0.03em;
       margin: 0;
     }
 
     .advantages-subtitle {
       font-size: 13px;
-      color: #9ca3af;
+      color: #6b7280;
       margin: 0;
     }
 
     .advantages-list {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
-      gap: 14px;
-      align-items: flex-start;
-    }
-
-    @media (max-width: 860px) {
-      .advantages-list {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .advantages-col {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .advantages-list::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .advantages-list::-webkit-scrollbar-thumb {
+      background: rgba(17, 24, 39, 0.2);
+      border-radius: 999px;
     }
 
     .adv-card {
-      border-radius: 14px;
-      padding: 10px 11px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.6);
+      border-radius: 28px;
+      padding: 22px;
+      background: #f9fafb;
+      border: 2px solid #111827;
       display: grid;
-      grid-template-columns: 28px minmax(0, 1fr);
-      gap: 10px;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
       align-items: flex-start;
+      min-width: 260px;
+      aspect-ratio: 1 / 1;
+      scroll-snap-align: start;
     }
 
     .adv-icon {
-      width: 28px;
-      height: 28px;
+      width: 72px;
+      height: 72px;
       border-radius: 999px;
-      background: linear-gradient(135deg, #facc15, #f97316);
+      background: #ffeb5a;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 28px;
+      margin: 6px auto 0;
     }
 
     .adv-main-title {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 3px;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-align: center;
+      text-transform: uppercase;
     }
 
     .adv-main-text {
       font-size: 13px;
-      color: #9ca3af;
+      color: #374151;
       margin: 0;
+      text-align: center;
     }
 
     .adv-label {
@@ -922,8 +1340,8 @@
     }
 
     .adv-card--soft {
-      background: rgba(15, 23, 42, 0.7);
-      border-style: dashed;
+      background: #f9fafb;
+      border-style: solid;
     }
 
     /* 6) ТАРИФЫ — GRID, ПРЕМИУМ В ЦЕНТРЕ, HOVER */
@@ -1277,298 +1695,360 @@
     /* 9) ФУТЕР */
 
     footer {
-      margin-top: 34px;
-      border-top: 1px solid #e5e7eb;
-      background: #f9fafb;
+      padding: 60px 0 40px;
+      background: #111827;
     }
 
-    .footer-inner {
-      padding: 14px 0 18px;
-      display: flex;
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 160px);
       gap: 24px;
-      justify-content: space-between;
-      align-items: flex-start;
-      font-size: 12px;
-      color: #6b7280;
-      flex-wrap: wrap;
+      align-items: start;
+      padding: 28px;
+      border-radius: 24px;
+      background: #0b1220;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin: 0 0 18px;
+      max-width: none;
+      color: #e5e7eb;
     }
 
-    .footer-brand {
-      max-width: 260px;
+    .footer-grid--new .logo {
+      font-size: 20px;
+      color: #ffffff;
     }
 
-    .footer-logo {
-      font-weight: 600;
-      font-size: 16px;
-      margin-bottom: 4px;
-      color: #111827;
-    }
-
-    .footer-email {
-      margin-bottom: 4px;
+    .footer-main {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      color: #e5e7eb;
+      font-size: 14px;
     }
 
     .footer-legal {
-      font-size: 11px;
+      font-size: 12px;
       color: #9ca3af;
+      display: grid;
+      gap: 4px;
     }
 
-    .footer-nav {
+    .footer-links {
+      display: grid;
+      gap: 8px;
+      font-size: 14px;
+      color: #e5e7eb;
+    }
+
+    .footer-bottom {
       display: flex;
+      justify-content: space-between;
       gap: 16px;
-      align-items: center;
-      flex-wrap: wrap;
+      color: #9ca3af;
+      font-size: 13px;
+      padding: 0 6px;
     }
 
-    .footer-link {
-      color: #4b5563;
-      font-size: 12px;
-    }
-
-    .footer-auth {
-      margin-left: auto;
-    }
-
-    .footer-auth button {
-      padding: 7px 14px;
-      border-radius: 999px;
-      border: 1px solid #111827;
-      background: #111827;
-      color: #f9fafb;
-      font-size: 12px;
-      cursor: pointer;
-      transition: background var(--transition-fast),
-        color var(--transition-fast),
-        transform var(--transition-fast),
-        box-shadow var(--transition-fast);
-    }
-
-    .footer-auth button:hover {
-      background: #020617;
-      transform: translateY(-1px);
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.28);
-    }
-
-    @media (max-width: 720px) {
-      .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
+    @media (max-width: 900px) {
+      .footer-grid {
+        grid-template-columns: minmax(0, 1fr);
       }
+    }
 
-      .footer-auth {
-        margin-left: 0;
+    @media (max-width: 640px) {
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
       }
     }
   </style>
 </head>
 <body>
   <div class="page">
-    <header class="hero">
-      <div class="container">
-        <div class="hero-inner">
-          <div class="hero-left">
-            <div class="hero-badge">
-              <span>taam.menu</span>
-              <span>цифровые меню для заведений</span>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="logo">taam.menu</div>
+        <nav class="nav-desktop">
+          <a href="#">Каталог</a>
+          <a href="#">Как это работает?</a>
+          <a href="#">Преимущества</a>
+          <a href="#">Тарифы</a>
+          <a href="#">О нас</a>
+        </nav>
+        <div class="header-btn-wrap">
+          <a href="#" class="btn-login-yellow">
+            Войти
+            <div class="login-icon-circle">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="black"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
             </div>
-            <h1 class="hero-title">
-              Цифровое меню с QR‑кодом<br />за один вечер
-            </h1>
-            <p class="hero-subtitle">
-              Гость открывает меню по QR‑коду, быстро выбирает блюда, а вы управляете позициями и ценами без перепечатки бумажных листов.
-            </p>
-            <div class="hero-actions">
-              <button class="btn-primary">
-                Запустить меню
-                <span>→</span>
-              </button>
-              <button class="btn-ghost">
-                Посмотреть пример меню
-                <span>↗</span>
-              </button>
-            </div>
-            <div class="hero-meta">
-              <div class="hero-meta-item">
-                <span>⚡</span>
-                <span>Старт за 1 день</span>
+          </a>
+        </div>
+        <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false">
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="mobile-menu" class="mobile-menu">
+        <ul>
+          <li><a href="#">Каталог</a></li>
+          <li><a href="#">Как это работает?</a></li>
+          <li><a href="#">Преимущества</a></li>
+          <li><a href="#">Тарифы</a></li>
+          <li><a href="#">О нас</a></li>
+          <li>
+            <a href="#" class="btn-login-yellow" style="justify-content: center; width: 100%;">
+              Войти
+              <div class="login-icon-circle">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
               </div>
-              <div class="hero-meta-item">
-                <span>📱</span>
-                <span>Удобно с телефона</span>
-              </div>
-              <div class="hero-meta-item">
-                <span>🧾</span>
-                <span>Без перепечатки бумажек</span>
-              </div>
-            </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="version-badge">
+            <span class="version-dot"></span>
+            Новая версия 2.0 уже доступна
           </div>
-          <div class="hero-visual">
-            <div class="hero-visual-inner">
-              <div class="hero-visual-menu">
-                <div class="hero-visual-menu-header">
-                  <div class="hero-visual-menu-title">Меню «taam cafe»</div>
-                  <div class="hero-visual-menu-tag">QR‑меню</div>
-                </div>
-                <div class="hero-visual-menu-item">
-                  <div>
-                    <div class="hero-visual-menu-item-name">Боул с лососем</div>
-                    <div class="hero-visual-menu-item-meta">250 г · холодное</div>
-                  </div>
-                  <div class="hero-visual-menu-item-price">17,90</div>
-                </div>
-                <div class="hero-visual-menu-item">
-                  <div>
-                    <div class="hero-visual-menu-item-name">Крем‑суп тыквенный</div>
-                    <div class="hero-visual-menu-item-meta">300 мл · горячее</div>
-                  </div>
-                  <div class="hero-visual-menu-item-price">8,50</div>
-                </div>
-                <div class="hero-visual-menu-item">
-                  <div>
-                    <div class="hero-visual-menu-item-name">Лимонад маракуйя</div>
-                    <div class="hero-visual-menu-item-meta">400 мл · напитки</div>
-                  </div>
-                  <div class="hero-visual-menu-item-price">5,90</div>
+          <h1 class="hero-title">
+            Меню, которое <br />
+            <span class="highlight-underline">
+              всегда актуально
+              <svg viewBox="0 0 200 9" preserveAspectRatio="none">
+                <path
+                  d="M2.00025 7.00002C48.6987 2.37682 120.916 -2.46419 198.001 2.50002"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  fill="none"
+                />
+              </svg>
+            </span>
+          </h1>
+          <p class="hero-desc">
+            <strong>taam.menu</strong> — сервис для создания цифровых меню для ресторанов.
+            Дайте гостям доступ к меню по QR‑коду и привлекайте новых клиентов через онлайн‑каталог.
+          </p>
+          <div class="hero-buttons">
+            <a href="#" class="btn-pill">
+              Создать меню
+              <span class="btn-icon-circle">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </span>
+            </a>
+            <a
+              href="https://primernoe.taam.menu/"
+              class="btn-pill btn-pill--pink"
+              target="_blank"
+              rel="noopener"
+            >
+              Посмотреть пример
+              <span class="btn-icon-circle">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </span>
+            </a>
+          </div>
+          <div class="hero-meta">
+            <div class="hero-meta-item">⚡ Запуск за 1 день</div>
+            <div class="hero-meta-item">📱 Удобно с телефона</div>
+            <div class="hero-meta-item">🧾 Без перепечатки меню</div>
+          </div>
+        </div>
+        <div class="mockup-wrapper">
+          <div class="blob-lime"></div>
+          <div class="blob-pink"></div>
+          <div class="phone-card">
+            <div class="phone-screen">
+              <div class="qr-code-overlay">
+                <div class="qr-img-placeholder"></div>
+              </div>
+              <div class="skeleton-header"></div>
+              <div class="skeleton-banner"></div>
+              <div class="skeleton-row">
+                <div class="skeleton-img"></div>
+                <div class="skeleton-text">
+                  <div style="width: 80%"></div>
+                  <div style="width: 40%"></div>
                 </div>
               </div>
-              <div class="hero-visual-qr">
-                <div class="hero-visual-qr-badge">Гость наводит камеру</div>
-                <div class="hero-visual-qr-title">Меню всегда под рукой</div>
-                <div class="hero-visual-qr-meta">
-                  QR‑код на столах, ссылка в соцсетях и профиле заведения.
+              <div class="skeleton-row">
+                <div class="skeleton-img"></div>
+                <div class="skeleton-text">
+                  <div style="width: 70%"></div>
+                  <div style="width: 50%"></div>
                 </div>
-                <div class="hero-visual-qr-preview">
-                  <div class="hero-visual-qr-code"></div>
-                  <div class="hero-visual-qr-link">
-                    <span>taam.menu/your-cafe</span>
-                  </div>
+              </div>
+              <div class="skeleton-row">
+                <div class="skeleton-img"></div>
+                <div class="skeleton-text">
+                  <div style="width: 60%"></div>
+                  <div style="width: 30%"></div>
                 </div>
+              </div>
+              <div style="padding: 15px; margin-top: 20px;">
+                <div style="background: black; height: 40px; border-radius: 8px; width: 100%;"></div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </header>
+    </section>
 
     <main>
       <!-- КАТАЛОГ ЗАВЕДЕНИЙ + ФИЛЬТРЫ СВЕРХУ -->
-      <section class="catalog">
+      <section class="section section--soft" id="catalog">
         <div class="container">
-          <div class="section-header">
-            <div class="section-kicker">Каталог заведений</div>
-            <h2 class="section-title">Гости находят вас по городу, кухне и тегам</h2>
-            <p class="section-subtitle">
-              taam.menu — это не только конструктор меню, но и каталог, где гости ищут кафе и рестораны по фильтрам и QR‑коду.[file:1]
-            </p>
-          </div>
-          <div class="catalog-inner">
-            <div class="catalog-filters">
-              <button class="filter-pill filter-pill--active">
-                <span>📍</span>
-                По городу
-              </button>
-              <button class="filter-pill">
-                <span>🍽</span>
-                По типу кухни
-              </button>
-              <button class="filter-pill">
-                <span>🏷</span>
-                По тегам (халяль, детская, Wi‑Fi)
-              </button>
-              <button class="filter-pill">
-                <span>🛵</span>
-                Есть доставка
-              </button>
-              <button class="filter-pill">
-                <span>☕</span>
-                Кофейни рядом
-              </button>
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Каталог заведений</h2>
+              <p class="section-subtitle">
+                taam.menu — это не только конструктор меню, но и каталог заведений, где гости ищут места по городу, типу и тегам.
+              </p>
             </div>
 
-            <div class="catalog-grid">
-              <article class="place-card">
-                <div class="place-card-top">
-                  <div class="place-card-logo"></div>
-                  <div class="place-card-main">
-                    <div class="place-card-name">taam cafe</div>
-                    <div class="place-card-meta">
-                      Минск · авторская кухня · 500 м от вас
-                    </div>
-                    <div class="place-card-tags">
-                      <span class="tag-pill">Завтраки</span>
-                      <span class="tag-pill">Кофе</span>
-                      <span class="tag-pill">Wi‑Fi</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="place-card-footer">
-                  <span>Открыто до 23:00</span>
-                  <a href="#" class="place-card-link">
-                    Открыть меню
-                    <span>↗</span>
-                  </a>
-                </div>
-              </article>
+            <div class="catalog-meta">
+              <div class="counter-pill">
+                Всего найдено: <span id="foundCount">0</span>
+              </div>
 
-              <article class="place-card">
-                <div class="place-card-top">
-                  <div class="place-card-logo" style="background:linear-gradient(135deg,#bbf7d0,#4ade80);"></div>
-                  <div class="place-card-main">
-                    <div class="place-card-name">Burger&Street</div>
-                    <div class="place-card-meta">
-                      Стритфуд · доставка и навынос
-                    </div>
-                    <div class="place-card-tags">
-                      <span class="tag-pill">Доставка</span>
-                      <span class="tag-pill">Навынос</span>
-                      <span class="tag-pill">Парковка</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="place-card-footer">
-                  <span>Доставка 30–45 мин</span>
-                  <a href="#" class="place-card-link">
-                    Открыть меню
-                    <span>↗</span>
-                  </a>
-                </div>
-              </article>
-
-              <article class="place-card">
-                <div class="place-card-top">
-                  <div class="place-card-logo" style="background:linear-gradient(135deg,#ddd6fe,#a855f7);"></div>
-                  <div class="place-card-main">
-                    <div class="place-card-name">Family Pizza</div>
-                    <div class="place-card-meta">
-                      Пицца · детская зона · центр
-                    </div>
-                    <div class="place-card-tags">
-                      <span class="tag-pill">Детская зона</span>
-                      <span class="tag-pill">Халяль</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="place-card-footer">
-                  <span>Сегодня · акции</span>
-                  <a href="#" class="place-card-link">
-                    Открыть меню
-                    <span>↗</span>
-                  </a>
-                </div>
-              </article>
+              <div class="sort-wrap">
+                <label class="sr-only" for="sortSelect">Сортировка</label>
+                <select id="sortSelect" class="select-soft">
+                  <option value="popular">Сначала популярные</option>
+                  <option value="newest">Сначала новые</option>
+                </select>
+              </div>
             </div>
           </div>
+
+          <div class="catalog-toolbar">
+            <div class="search-wrap">
+              <input
+                id="searchInput"
+                class="input-soft"
+                type="search"
+                placeholder="Поиск по названию, городу, тегам или типу..."
+              />
+            </div>
+
+            <button class="btn-soft" id="filtersToggle" type="button">
+              Фильтры
+              <span class="btn-soft__icon">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="4" y1="6" x2="20" y2="6"></line>
+                  <line x1="7" y1="12" x2="17" y2="12"></line>
+                  <line x1="10" y1="18" x2="14" y2="18"></line>
+                </svg>
+              </span>
+            </button>
+          </div>
+
+          <div class="filters-panel" id="filtersPanel" style="display:none;">
+            <div class="filters-head">
+              <div class="filters-title">Фильтры</div>
+              <button class="link-soft" id="clearFilters" type="button">Сбросить</button>
+            </div>
+
+            <div class="filter-group">
+              <span class="filter-label">Город</span>
+              <div class="filter-buttons" id="cityFilters"></div>
+            </div>
+
+            <div class="filter-group">
+              <span class="filter-label">Тип заведения</span>
+              <div class="filter-buttons" id="typeFilters"></div>
+            </div>
+
+            <div class="filter-group">
+              <span class="filter-label">Теги</span>
+              <div class="filter-buttons" id="tagFilters"></div>
+            </div>
+          </div>
+
+          <div class="cards-grid" id="catalogCards"></div>
         </div>
       </section>
 
       <!-- КАК СДЕЛАТЬ СВОЕ МЕНЮ + САМОСТОЯТЕЛЬНО / С НАШЕЙ ПОДДЕРЖКОЙ В ОДНОМ БЛОКЕ -->
-      <section>
+      <section id="how-modes">
         <div class="container">
           <div class="section-header">
             <div class="section-kicker">Как запустить меню</div>
             <h2 class="section-title">Сделайте цифровое меню сами или с нашей помощью</h2>
             <p class="section-subtitle">
-              Выберите сценарий: полностью самостоятельно в конструкторе или с поддержкой команды taam.menu “под ключ”.[file:1]
+              Выберите сценарий: полностью самостоятельно в конструкторе или с поддержкой команды taam.menu “под ключ”.
             </p>
           </div>
 
@@ -1582,15 +2062,15 @@
                 <ul class="how-list">
                   <li>
                     <span>🔑</span>
-                    <div>Зарегистрируйтесь в taam.menu и создайте профиль заведения.[file:1]</div>
+                    <div>Зарегистрируйтесь в taam.menu и создайте профиль заведения.</div>
                   </li>
                   <li>
                     <span>🍽</span>
-                    <div>Добавьте блюда, категории и цены — меню собирается прямо в браузере.[file:1]</div>
+                    <div>Добавьте блюда, категории и цены — меню собирается прямо в браузере.</div>
                   </li>
                   <li>
                     <span>📲</span>
-                    <div>Получите QR‑код и ссылку, разместите их на столах и в соцсетях.[file:1]</div>
+                    <div>Получите QR‑код и ссылку, разместите их на столах и в соцсетях.</div>
                   </li>
                 </ul>
                 <p class="how-note">
@@ -1606,19 +2086,19 @@
                 <ul class="how-list">
                   <li>
                     <span>📷</span>
-                    <div>Помогаем с фотографиями и оформлением позиций.[file:1]</div>
+                    <div>Помогаем с фотографиями и оформлением позиций.</div>
                   </li>
                   <li>
                     <span>🧾</span>
-                    <div>Создаём цифровое меню с блюдами, категориями и ценами вместо вас.[file:1]</div>
+                    <div>Создаём цифровое меню с блюдами, категориями и ценами вместо вас.</div>
                   </li>
                   <li>
                     <span>🧩</span>
-                    <div>Готовим и печатаем таблички с QR‑кодами на столы.[file:1]</div>
+                    <div>Готовим и печатаем таблички с QR‑кодами на столы.</div>
                   </li>
                   <li>
                     <span>🌐</span>
-                    <div>Добавляем заведение на сайт taam.menu и настраиваем каталог.[file:1]</div>
+                    <div>Добавляем заведение на сайт taam.menu и настраиваем каталог.</div>
                   </li>
                 </ul>
                 <p class="how-note">
@@ -1658,7 +2138,7 @@
             <div class="section-kicker">Функции сервиса</div>
             <h2 class="section-title">Что умеет taam.menu</h2>
             <p class="section-subtitle">
-              Инструменты, которые делают меню удобным для гостей и помогают заведению продавать больше.[file:1]
+              Инструменты, которые делают меню удобным для гостей и помогают заведению продавать больше.
             </p>
           </div>
 
@@ -1668,7 +2148,7 @@
                 <div class="feature-tag">Меню</div>
                 <h3 class="feature-title">Онлайн‑меню с фото и ценами</h3>
                 <p class="feature-text">
-                  Каждая позиция с фото, описанием и ценой — без мелкого текста и старых блюд.[file:1]
+                  Каждая позиция с фото, описанием и ценой — без мелкого текста и старых блюд.
                 </p>
                 <span class="feature-badge">Меню онлайн</span>
               </article>
@@ -1677,7 +2157,7 @@
                 <div class="feature-tag">Структура</div>
                 <h3 class="feature-title">Категории и теги</h3>
                 <p class="feature-text">
-                  Завтраки, десерты, напитки, детское — гость быстро находит нужный раздел и фильтрует по тегам.[file:1]
+                  Завтраки, десерты, напитки, детское — гость быстро находит нужный раздел и фильтрует по тегам.
                 </p>
                 <span class="feature-badge">Категории</span>
               </article>
@@ -1686,7 +2166,7 @@
                 <div class="feature-tag">Управление</div>
                 <h3 class="feature-title">Изменения в один клик</h3>
                 <p class="feature-text">
-                  Редактируйте цены, скрывайте блюда и добавляйте новинки без перевёрстки меню.[file:1]
+                  Редактируйте цены, скрывайте блюда и добавляйте новинки без перевёрстки меню.
                 </p>
                 <span class="feature-badge">1 клик</span>
               </article>
@@ -1695,7 +2175,7 @@
                 <div class="feature-tag">Продвижение</div>
                 <h3 class="feature-title">QR‑код, ссылка и SEO</h3>
                 <p class="feature-text">
-                  QR‑коды на столах, ссылка в соцсетях и индексация в поиске — дополнительный трафик и новые гости.[file:1]
+                  QR‑коды на столах, ссылка в соцсетях и индексация в поиске — дополнительный трафик и новые гости.
                 </p>
                 <span class="feature-badge">QR + SEO</span>
               </article>
@@ -1704,12 +2184,12 @@
             <aside class="features-side">
               <h3 class="features-side-title">Для гостей удобно, для вас — прозрачно</h3>
               <p class="features-side-text">
-                taam.menu показывает, что и как заказывают, помогает видеть наиболее популярные блюда и управлять доставкой.[file:1]
+                taam.menu показывает, что и как заказывают, помогает видеть наиболее популярные блюда и управлять доставкой.
               </p>
               <ul class="features-side-list">
                 <li>
                   <span>📈</span>
-                  <span>Статистика заказов — какие позиции приносят максимум выручки.[file:1]</span>
+                  <span>Статистика заказов — какие позиции приносят максимум выручки.</span>
                 </li>
                 <li>
                   <span>🧮</span>
@@ -1717,11 +2197,11 @@
                 </li>
                 <li>
                   <span>🌍</span>
-                  <span>Поддержка разных валют для туристов и гостей из других стран.[file:1]</span>
+                  <span>Поддержка разных валют для туристов и гостей из других стран.</span>
                 </li>
               </ul>
               <div class="features-side-text">
-                Подключите доставку и принимайте заказы прямо из меню — без лишних звонков.[file:1]
+                Подключите доставку и принимайте заказы прямо из меню — без лишних звонков.
               </div>
               <div class="features-side-pulse"></div>
             </aside>
@@ -1734,96 +2214,55 @@
         <div class="container">
           <div class="advantages">
             <div class="advantages-header">
-              <div>
-                <h2 class="advantages-title">Преимущества taam.menu для заведений</h2>
-                <p class="advantages-subtitle">
-                  Каждый блок — отдельная выгода, которую гость чувствует сразу, а вы — в выручке.
-                </p>
-              </div>
-              <div class="advantages-subtitle">
-                Листайте страницу — преимущества идут подряд, без автопрокрутки.
-              </div>
+              <h2 class="advantages-title">Преимущества</h2>
+              <div class="advantages-barcode" aria-hidden="true"></div>
             </div>
 
             <div class="advantages-list">
-              <div class="advantages-col">
-                <article class="adv-card">
-                  <div class="adv-icon">⚡</div>
-                  <div>
-                    <div class="adv-main-title">Быстрый запуск без разработчика</div>
-                    <p class="adv-main-text">
-                      Готовое решение: не нужно заказывать сайт, макеты и верстку меню каждое изменение.
-                    </p>
-                  </div>
-                </article>
+              <article class="adv-card">
+                <div class="adv-icon">🤖</div>
+                <div class="adv-main-title">Экономия</div>
+                <p class="adv-main-text">Не тратьтесь на печать и обновление бумажных меню.</p>
+              </article>
 
-                <article class="adv-card adv-card--soft">
-                  <div class="adv-icon">💸</div>
-                  <div>
-                    <div class="adv-main-title">Экономия на печати и дизайне</div>
-                    <p class="adv-main-text">
-                      Любое изменение цены — в пару кликов, без перепечатки бумажных меню и плакатов.
-                    </p>
-                  </div>
-                </article>
+              <article class="adv-card adv-card--soft">
+                <div class="adv-icon">🛍️</div>
+                <div class="adv-main-title">Удобство</div>
+                <p class="adv-main-text">Изменения в меню занимают секунды.</p>
+              </article>
 
-                <article class="adv-card">
-                  <div class="adv-icon">📱</div>
-                  <div>
-                    <div class="adv-main-title">Удобно с телефона и планшета</div>
-                    <p class="adv-main-text">
-                      Меню адаптировано под смартфоны: крупный текст, понятные кнопки и быстрый скролл.
-                    </p>
-                  </div>
-                </article>
-              </div>
+              <article class="adv-card">
+                <div class="adv-icon">⏳</div>
+                <div class="adv-main-title">Гибкость</div>
+                <p class="adv-main-text">Скрывайте блюда, если их нет в наличии.</p>
+              </article>
 
-              <div class="advantages-col">
-                <div class="adv-label">Для команды и гостей</div>
+              <article class="adv-card adv-card--soft">
+                <div class="adv-icon">💬</div>
+                <div class="adv-main-title">Для гостей</div>
+                <p class="adv-main-text">Меню доступно по QR и ссылке без установки приложений.</p>
+              </article>
 
-                <article class="adv-card adv-card--soft">
-                  <div class="adv-icon">👨‍🍳</div>
-                  <div>
-                    <div class="adv-main-title">Меньше вопросов официанту</div>
-                    <p class="adv-main-text">
-                      Фото, состав и вес блюд уже в меню — персоналу проще работать с гостями.
-                    </p>
-                  </div>
-                </article>
-
-                <article class="adv-card">
-                  <div class="adv-icon">📊</div>
-                  <div>
-                    <div class="adv-main-title">Статистика заказов и позиций</div>
-                    <p class="adv-main-text">
-                      Видно, какие блюда заказывают чаще, а какие “висят” в меню и занимают место.[file:1]
-                    </p>
-                  </div>
-                </article>
-
-                <article class="adv-card adv-card--soft">
-                  <div class="adv-icon">🧩</div>
-                  <div>
-                    <div class="adv-main-title">Работает вместе с вашим брендом</div>
-                    <p class="adv-main-text">
-                      Настраиваем цвета, фото и оформление под стиль заведения, а не наоборот.
-                    </p>
-                  </div>
-                </article>
-              </div>
+              <article class="adv-card">
+                <div class="adv-icon">⚖️</div>
+                <div class="adv-main-title">Новые гости</div>
+                <p class="adv-main-text">
+                  Ваше заведение в каталоге taam.menu, где гости ищут по городам, кухням и тегам.
+                </p>
+              </article>
             </div>
           </div>
         </div>
       </section>
 
       <!-- ТАРИФЫ -->
-      <section class="pricing">
+      <section class="pricing" id="tariffs">
         <div class="container">
           <div class="section-header">
             <div class="section-kicker">Тарифы</div>
             <h2 class="section-title">Выберите тариф под вашу задачу</h2>
             <p class="section-subtitle">
-              От демо‑доступа, чтобы попробовать taam.menu, до полного набора функций с доставкой и аналитикой.[file:1]
+              От демо‑доступа, чтобы попробовать taam.menu, до полного набора функций с доставкой и аналитикой.
             </p>
           </div>
 
@@ -1834,7 +2273,7 @@
                 <div>
                   <h3 class="pricing-title">Демо‑доступ 3 дня</h3>
                   <p class="pricing-text">
-                    Попробуйте все функции taam.menu без ограничений и привязки карты.[file:1]
+                    Попробуйте все функции taam.menu без ограничений и привязки карты.
                   </p>
                 </div>
                 <div class="pricing-badge">3 дня бесплатно</div>
@@ -1843,7 +2282,7 @@
                 <ul class="pricing-benefits">
                   <li>
                     <span>✔</span>
-                    <div>Все функции конструктора и каталога заведений.[file:1]</div>
+                    <div>Все функции конструктора и каталога заведений.</div>
                   </li>
                   <li>
                     <span>✔</span>
@@ -1873,7 +2312,7 @@
                 <div>
                   <h3 class="pricing-title">Премиум — 30 дней</h3>
                   <p class="pricing-text">
-                    Максимум продаж: QR‑меню, доставка и аналитика по заказам в одном решении.[file:1]
+                    Максимум продаж: QR‑меню, доставка и аналитика по заказам в одном решении.
                   </p>
                 </div>
                 <div class="pricing-badge">Максимум возможностей</div>
@@ -1882,19 +2321,19 @@
                 <ul class="pricing-benefits">
                   <li>
                     <span>⭐</span>
-                    <div>Всё, что в тарифе «QR‑меню» — без ограничений по позициям.[file:1]</div>
+                    <div>Всё, что в тарифе «QR‑меню» — без ограничений по позициям.</div>
                   </li>
                   <li>
                     <span>⭐</span>
-                    <div>Оформление доставки: принимайте заказы онлайн прямо из меню.[file:1]</div>
+                    <div>Оформление доставки: принимайте заказы онлайн прямо из меню.</div>
                   </li>
                   <li>
                     <span>⭐</span>
-                    <div>Статистика заказов и аналитика по популярным блюдам.[file:1]</div>
+                    <div>Статистика заказов и аналитика по популярным блюдам.</div>
                   </li>
                   <li>
                     <span>⭐</span>
-                    <div>Поддержка разных валют для туристов и гостей из‑за рубежа.[file:1]</div>
+                    <div>Поддержка разных валют для туристов и гостей из‑за рубежа.</div>
                   </li>
                 </ul>
               </div>
@@ -1916,7 +2355,7 @@
                 <div>
                   <h3 class="pricing-title">QR‑меню — 30 дней</h3>
                   <p class="pricing-text">
-                    Электронное меню и профиль заведения — чтобы гости выбирали быстрее.[file:1]
+                    Электронное меню и профиль заведения — чтобы гости выбирали быстрее.
                   </p>
                 </div>
                 <div class="pricing-badge">QR‑меню</div>
@@ -1925,19 +2364,19 @@
                 <ul class="pricing-benefits">
                   <li>
                     <span>✔</span>
-                    <div>Профиль заведения: контакты, адрес, график работы, соцсети.[file:1]</div>
+                    <div>Профиль заведения: контакты, адрес, график работы, соцсети.</div>
                   </li>
                   <li>
                     <span>✔</span>
-                    <div>Неограниченное количество блюд и категорий с фото и ценой.[file:1]</div>
+                    <div>Неограниченное количество блюд и категорий с фото и ценой.</div>
                   </li>
                   <li>
                     <span>✔</span>
-                    <div>Уникальный QR‑код и ссылка для размещения на столах и в соцсетях.[file:1]</div>
+                    <div>Уникальный QR‑код и ссылка для размещения на столах и в соцсетях.</div>
                   </li>
                   <li>
                     <span>✔</span>
-                    <div>Поиск, фильтры и теги, SEO‑индексация в Google и Яндекс.[file:1]</div>
+                    <div>Поиск, фильтры и теги, SEO‑индексация в Google и Яндекс.</div>
                   </li>
                   <li>
                     <span>✔</span>
@@ -1961,14 +2400,14 @@
       </section>
 
       <!-- ФОРМА СВЯЗИ -->
-      <section>
+      <section id="contacts">
         <div class="container">
           <div class="contact">
             <div class="contact-inner">
               <div>
                 <h2 class="contact-title">Связаться с taam.menu</h2>
                 <p class="contact-text">
-                  Оставьте заявку, и команда подскажет, как лучше запустить цифровое меню именно в вашем формате — кафе, баре, кофейне или пиццерии.[file:1]
+                  Оставьте заявку, и команда подскажет, как лучше запустить цифровое меню именно в вашем формате — кафе, баре, кофейне или пиццерии.
                 </p>
                 <div class="contact-badges">
                   <span class="contact-badge">Подберём тариф под задачи</span>
@@ -1979,21 +2418,26 @@
               <form class="contact-form">
                 <div>
                   <div class="field-label">Имя</div>
-                  <input class="field-input" type="text" placeholder="Как к вам обращаться?" />
+                  <input class="field-input" type="text" name="name" placeholder="Как к вам обращаться?" />
                 </div>
                 <div class="field-row">
                   <div>
                     <div class="field-label">Телефон или мессенджер</div>
-                    <input class="field-input" type="text" placeholder="+375…" />
+                    <input class="field-input" type="text" name="contact" placeholder="+375…" />
                   </div>
                   <div>
                     <div class="field-label">Название заведения</div>
-                    <input class="field-input" type="text" placeholder="Кафе, бар, кофейня…" />
+                    <input class="field-input" type="text" name="venue" placeholder="Кафе, бар, кофейня…" />
                   </div>
                 </div>
                 <div>
                   <div class="field-label">Комментарий</div>
-                  <textarea class="field-textarea" rows="3" placeholder="Кратко опишите, как сейчас работает меню и что хотите улучшить."></textarea>
+                  <textarea
+                    class="field-textarea"
+                    name="message"
+                    rows="3"
+                    placeholder="Кратко опишите, как сейчас работает меню и что хотите улучшить."
+                  ></textarea>
                 </div>
                 <div class="contact-submit">
                   <button type="submit" class="btn-primary">
@@ -2014,23 +2458,50 @@
     <!-- ФУТЕР -->
     <footer>
       <div class="container">
-        <div class="footer-inner">
-          <div class="footer-brand">
-            <div class="footer-logo">taam.menu</div>
-            <div class="footer-email">hello@taam.menu</div>
+        <div class="footer-grid footer-grid--new">
+          <div class="footer-main">
+            <div class="logo">taam.menu</div>
+            <div>support@taam.menu</div>
             <div class="footer-legal">
-              ООО «Таам Меню». ИНН / УНП · Налоговая информация и юридический адрес. Все права защищены.
+              <div>ИНН: 384908260514</div>
+              <div>Кодзоев Микаил Иссаевич</div>
+              <div>от 08.10.2025</div>
+              <div>Межрайонная ИФНС №16 по Иркутской области</div>
             </div>
           </div>
-          <nav class="footer-nav">
-            <a href="#" class="footer-link">Каталог заведений</a>
-            <a href="#" class="footer-link">Как это работает</a>
-            <a href="#" class="footer-link">Тарифы</a>
-            <a href="#" class="footer-link">Поддержка</a>
-          </nav>
-          <div class="footer-auth">
-            <button type="button">Войти</button>
+
+          <div class="footer-links">
+            <a href="#catalog">Каталог</a>
+            <a href="#how-modes">Как это работает</a>
+            <a href="#tariffs">Тарифы</a>
+            <a href="#contacts">Контакты</a>
           </div>
+
+          <div style="margin-left: auto;">
+            <a href="#" class="btn-login-yellow" style="width: 160px; justify-content: center;">
+              Войти
+              <div class="login-icon-circle">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>© taam.menu</div>
+          <div>support@taam.menu</div>
         </div>
       </div>
     </footer>
@@ -2054,6 +2525,260 @@
     backToTop.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
+
+    // Мобильное меню
+    const burgerButton = document.querySelector(".burger");
+    const mobileMenu = document.getElementById("mobile-menu");
+    if (burgerButton && mobileMenu) {
+      burgerButton.addEventListener("click", () => {
+        const isOpen = mobileMenu.classList.toggle("is-open");
+        burgerButton.setAttribute("aria-expanded", String(isOpen));
+      });
+    }
+
+    // Каталог: поиск, фильтры, сортировка
+    const catalogData = [
+      {
+        name: "Мона",
+        type: "Ресторан",
+        tags: [
+          "Халяль",
+          "Европейская кухня",
+          "ПП",
+          "Доставка",
+          "Место для молитвы",
+          "Удобная парковка",
+          "Без музыки",
+          "Безналичная оплата",
+        ],
+        city: "Магас",
+        img: "https://taam.menu/uploads/restaurant_10_20251223180356_ChatGPT%20Image%2023%20%D0%B4%D0%B5%D0%BA.%202025%20%D0%B3.,%2006_37_25.png",
+        link: "https://mona.taam.menu",
+        popularity: 92,
+        createdAt: "2024-04-12",
+      },
+      {
+        name: "Sad",
+        type: "Кафе",
+        tags: ["Wi-Fi", "Завтраки"],
+        city: "Магас",
+        img: "https://taam.menu/uploads/restaurant_10_20251223180356_ChatGPT%20Image%2023%20%D0%B4%D0%B5%D0%BA.%202025%20%D0%B3.,%2006_37_25.png",
+        link: "https://sad.taam.menu",
+        popularity: 86,
+        createdAt: "2024-03-18",
+      },
+      {
+        name: "Primernoe",
+        type: "Кафе",
+        tags: [
+          "Без музыки",
+          "Халяль",
+          "Wi‑Fi",
+          "Доставка",
+          "Место для молитвы",
+          "Удобная парковка",
+          "Безналичная оплата",
+        ],
+        city: "Назрань",
+        img: "https://taam.menu/uploads/restaurant_10_20251223180356_ChatGPT%20Image%2023%20%D0%B4%D0%B5%D0%BA.%202025%20%D0%B3.,%2006_37_25.png",
+        link: "https://primernoe.taam.menu",
+        popularity: 90,
+        createdAt: "2024-02-20",
+      },
+    ];
+
+    const catalogCards = document.getElementById("catalogCards");
+    const foundCount = document.getElementById("foundCount");
+    const searchInput = document.getElementById("searchInput");
+    const sortSelect = document.getElementById("sortSelect");
+    const filtersPanel = document.getElementById("filtersPanel");
+    const filtersToggle = document.getElementById("filtersToggle");
+    const clearFilters = document.getElementById("clearFilters");
+
+    const activeFilters = {
+      city: "all",
+      type: "all",
+      tag: "all",
+      search: "",
+    };
+
+    const normalize = (value) => value.toLowerCase();
+
+    const renderFilterButtons = (container, values, key) => {
+      const allButton = document.createElement("button");
+      allButton.type = "button";
+      allButton.className = "filter-button is-active";
+      allButton.textContent = "Все";
+      allButton.addEventListener("click", () => {
+        activeFilters[key] = "all";
+        container.querySelectorAll(".filter-button").forEach((btn) => btn.classList.remove("is-active"));
+        allButton.classList.add("is-active");
+        renderCatalog();
+      });
+      container.appendChild(allButton);
+
+      values.forEach((value) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "filter-button";
+        button.textContent = value;
+        button.addEventListener("click", () => {
+          activeFilters[key] = value;
+          container.querySelectorAll(".filter-button").forEach((btn) => btn.classList.remove("is-active"));
+          button.classList.add("is-active");
+          renderCatalog();
+        });
+        container.appendChild(button);
+      });
+    };
+
+    const buildFilters = () => {
+      const cityFilters = document.getElementById("cityFilters");
+      const typeFilters = document.getElementById("typeFilters");
+      const tagFilters = document.getElementById("tagFilters");
+
+      const cities = [...new Set(catalogData.map((item) => item.city))];
+      const types = [...new Set(catalogData.map((item) => item.type))];
+      const tags = [...new Set(catalogData.flatMap((item) => item.tags))];
+
+      cityFilters.innerHTML = "";
+      typeFilters.innerHTML = "";
+      tagFilters.innerHTML = "";
+
+      renderFilterButtons(cityFilters, cities, "city");
+      renderFilterButtons(typeFilters, types, "type");
+      renderFilterButtons(tagFilters, tags, "tag");
+    };
+
+    const matchesFilters = (item) => {
+      if (activeFilters.city !== "all" && item.city !== activeFilters.city) {
+        return false;
+      }
+      if (activeFilters.type !== "all" && item.type !== activeFilters.type) {
+        return false;
+      }
+      if (activeFilters.tag !== "all" && !item.tags.includes(activeFilters.tag)) {
+        return false;
+      }
+      if (activeFilters.search) {
+        const query = normalize(activeFilters.search);
+        const haystack = [item.name, item.city, item.type, item.tags.join(" ")]
+          .join(" ")
+          .toLowerCase();
+        if (!haystack.includes(query)) {
+          return false;
+        }
+      }
+      return true;
+    };
+
+    const sortItems = (items) => {
+      if (sortSelect?.value === "newest") {
+        return items.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      }
+      return items.sort((a, b) => b.popularity - a.popularity);
+    };
+
+    const renderCatalog = () => {
+      const filtered = sortItems(catalogData.filter(matchesFilters));
+      if (catalogCards) {
+        catalogCards.innerHTML = filtered
+          .map(
+            (item) => `
+              <article class="place-card" style="--card-image: url('${item.img}');">
+                <div class="place-card-content">
+            <div class="place-card-badges">
+                    <span class="place-card-badge place-card-badge--type">${item.type}</span>
+                    <span class="place-card-badge place-card-badge--city">${item.city}</span>
+                  </div>
+                  <div class="place-card-tags">
+                    <span class="place-card-tags-title">place-card-tags</span>
+                    ${item.tags.map((tag) => `<span class="tag-pill">${tag}</span>`).join("")}
+                  </div>
+                  <div class="place-card-footer">
+                    <span>${item.name}</span>
+                    <a href="${item.link}" class="place-card-link" target="_blank" rel="noopener">
+                      Перейти
+                      <span>↗</span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+            `
+          )
+          .join("");
+      }
+      if (foundCount) {
+        foundCount.textContent = filtered.length;
+      }
+    };
+
+    if (filtersToggle && filtersPanel) {
+      filtersToggle.addEventListener("click", () => {
+        filtersPanel.style.display = filtersPanel.style.display === "none" ? "block" : "none";
+      });
+    }
+
+    if (clearFilters) {
+      clearFilters.addEventListener("click", () => {
+        activeFilters.city = "all";
+        activeFilters.type = "all";
+        activeFilters.tag = "all";
+        activeFilters.search = "";
+        if (searchInput) {
+          searchInput.value = "";
+        }
+        buildFilters();
+        renderCatalog();
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener("input", (event) => {
+        activeFilters.search = event.target.value.trim();
+        renderCatalog();
+      });
+    }
+
+    if (sortSelect) {
+      sortSelect.addEventListener("change", renderCatalog);
+    }
+
+    buildFilters();
+    if (filtersPanel) {
+      filtersPanel.style.display = window.innerWidth >= 980 ? "block" : "none";
+    }
+    renderCatalog();
+
+    // Преимущества: горизонтальный скролл от вертикального
+    const advantagesSection = document.querySelector(".advantages");
+    const advantagesList = document.querySelector(".advantages-list");
+    const handleAdvantagesScroll = () => {
+      if (!advantagesSection || !advantagesList) {
+        return;
+      }
+      const rect = advantagesSection.getBoundingClientRect();
+      const total = rect.height + window.innerHeight;
+      const progress = Math.min(Math.max((window.innerHeight - rect.top) / total, 0), 1);
+      const maxScroll = advantagesList.scrollWidth - advantagesList.clientWidth;
+      advantagesList.scrollLeft = maxScroll * progress;
+    };
+
+    window.addEventListener("scroll", handleAdvantagesScroll);
+    window.addEventListener("resize", handleAdvantagesScroll);
+    handleAdvantagesScroll();
+
+    // Форма: вывод данных в консоль
+    const contactForm = document.querySelector(".contact-form");
+    if (contactForm) {
+      contactForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(contactForm);
+        const payload = Object.fromEntries(formData.entries());
+        console.log("Данные формы:", payload);
+        contactForm.reset();
+      });
+    }
   </script>
 </body>
 </html>
