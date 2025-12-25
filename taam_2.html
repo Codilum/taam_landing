@@ -50,6 +50,7 @@
       background: var(--bg-main);
       color: var(--text-main);
       line-height: 1.5;
+      font-size: 16px;
     }
 
     img {
@@ -60,6 +61,18 @@
     a {
       color: inherit;
       text-decoration: none;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     .page {
@@ -88,9 +101,9 @@
       position: sticky;
       top: 0;
       z-index: 30;
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(246, 246, 251, 0.9);
       backdrop-filter: blur(12px);
-      border-bottom: 2px solid var(--color-black);
+      border-bottom: 1px solid var(--border-soft);
     }
 
     .header-inner {
@@ -240,13 +253,13 @@
     /* HERO */
 
     .hero {
-      padding: 96px 0;
+      padding: 120px 0;
       position: relative;
       overflow: hidden;
-      background-color: var(--bg-hero);
-      background-image: linear-gradient(to right, #f0f0f0 1px, transparent 1px),
-        linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
-      background-size: 30px 30px;
+      background: linear-gradient(135deg, #f6f6fb 0%, #edf0ff 45%, #fff9e2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
     }
 
     .hero-grid {
@@ -281,7 +294,7 @@
     }
 
     .hero-title {
-      font-size: 58px;
+      font-size: 64px;
       line-height: 1.1;
       margin-bottom: 24px;
       letter-spacing: -0.03em;
@@ -303,7 +316,7 @@
     }
 
     .hero-desc {
-      font-size: 18px;
+      font-size: 19px;
       color: #555;
       margin-bottom: 32px;
       max-width: 560px;
@@ -321,7 +334,7 @@
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
-      font-size: 13px;
+      font-size: 14px;
       color: #6b7280;
     }
 
@@ -370,10 +383,10 @@
       position: relative;
       z-index: 1;
       background: var(--color-white);
-      border: 2px solid var(--color-black);
+      border: 1px solid #111827;
       border-radius: 30px;
       padding: 22px;
-      box-shadow: var(--shadow-hard);
+      box-shadow: 12px 12px 0px 0px rgba(17, 24, 39, 0.12);
       transform: rotate(-3deg);
       transition: transform 0.3s;
       max-width: 360px;
@@ -460,7 +473,7 @@
       }
 
       .hero-title {
-        font-size: 40px;
+        font-size: 42px;
       }
 
       .hero-desc {
@@ -490,11 +503,11 @@
 
     @media (max-width: 640px) {
       .hero {
-        padding: 70px 0 80px;
+        padding: 90px 0 100px;
       }
 
       .hero-title {
-        font-size: 32px;
+        font-size: 34px;
       }
 
       .btn-pill {
@@ -554,16 +567,16 @@
 
     main {
       flex: 1;
-      padding: 48px 0 96px;
+      padding: 64px 0 110px;
     }
 
     section {
-      margin-bottom: 72px;
+      margin-bottom: 88px;
     }
 
     .section-header {
       max-width: 760px;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
 
     .section-kicker {
@@ -575,9 +588,13 @@
     }
 
     .section-title {
-      font-size: 28px;
+      font-size: 30px;
       letter-spacing: -0.04em;
       margin: 0 0 8px;
+    }
+
+    .section-subtitle {
+      font-size: 16px;
     }
 
     .section-subtitle {
@@ -588,125 +605,184 @@
 
     /* 1) КАТАЛОГ + ФИЛЬТРЫ СВЕРХУ */
 
-    .catalog {
-      background: transparent;
+    .section--soft {
+      background: #f1f2f8;
+      border-radius: 28px;
+      padding: 40px 0;
     }
 
-    .catalog-inner {
-      background: var(--bg-card);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-card);
-      padding: 24px 24px 28px;
-    }
-
-    .catalog-filters {
+    .section-head {
       display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: flex-end;
+      margin-bottom: 24px;
       flex-wrap: wrap;
-      gap: 8px;
+    }
+
+    .catalog-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .counter-pill {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--border-soft);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .select-soft {
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border-soft);
+      background: #fff;
+      font-size: 13px;
+    }
+
+    .catalog-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
       margin-bottom: 20px;
     }
 
-    .filter-group {
-      position: relative;
+    .search-wrap {
+      flex: 1;
+      min-width: 240px;
     }
 
-    .filter-group summary {
-      list-style: none;
-    }
-
-    .filter-group summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .filter-pill {
-      padding: 6px 12px;
-      border-radius: 999px;
+    .input-soft {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
       border: 1px solid var(--border-soft);
-      background: #f9fafb;
-      font-size: 12px;
-      color: #4b5563;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background var(--transition-fast),
-        border-color var(--transition-fast),
-        color var(--transition-fast),
-        transform var(--transition-fast);
-    }
-
-    .filter-pill span {
+      background: #fff;
       font-size: 14px;
     }
 
-    .filter-pill--active {
-      background: #111827;
-      border-color: #111827;
-      color: #f9fafb;
-      transform: translateY(-1px);
-    }
-
-    .filter-group[open] > .filter-pill {
-      background: #111827;
-      border-color: #111827;
-      color: #f9fafb;
-    }
-
-    .filter-panel {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 0;
-      min-width: 220px;
-      padding: 10px;
-      border-radius: 14px;
-      background: #ffffff;
+    .btn-soft {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 12px;
       border: 1px solid var(--border-soft);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      z-index: 5;
+      background: #fff;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
     }
 
-    .filter-option {
-      border-radius: 999px;
+    .btn-soft__icon {
+      display: inline-flex;
+    }
+
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+      gap: 20px;
+    }
+
+    .filters-panel {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 16px;
+      border: 1px solid var(--border-soft);
+      height: fit-content;
+    }
+
+    .filters-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .filters-title {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .link-soft {
+      border: none;
+      background: none;
+      color: #4b5563;
+      cursor: pointer;
+      font-size: 12px;
+      text-decoration: underline;
+    }
+
+    .filter-group {
+      margin-bottom: 14px;
+    }
+
+    .filter-label {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-button {
       padding: 6px 10px;
-      border: 1px solid transparent;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
       background: #f9fafb;
       font-size: 12px;
-      text-align: left;
       cursor: pointer;
       transition: background var(--transition-fast),
         border-color var(--transition-fast),
         color var(--transition-fast);
     }
 
-    .filter-option.is-active {
+    .filter-button.is-active {
       background: #111827;
       border-color: #111827;
-      color: #ffffff;
+      color: #fff;
     }
 
-    .catalog-grid {
+    .cards-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 18px;
     }
 
     @media (max-width: 1180px) {
-      .catalog-grid {
+      .cards-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
 
     @media (max-width: 980px) {
       .catalog-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .filters-panel {
+        order: 2;
+      }
+
+      .cards-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
     @media (max-width: 640px) {
-      .catalog-grid {
+      .cards-grid {
         grid-template-columns: minmax(0, 1fr);
       }
     }
@@ -1115,22 +1191,20 @@
     }
 
     .advantages-list {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
-      gap: 14px;
-      align-items: flex-start;
-    }
-
-    @media (max-width: 860px) {
-      .advantages-list {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .advantages-col {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
+      gap: 14px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .advantages-list::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .advantages-list::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.35);
+      border-radius: 999px;
     }
 
     .adv-card {
@@ -1142,6 +1216,8 @@
       grid-template-columns: 28px minmax(0, 1fr);
       gap: 10px;
       align-items: flex-start;
+      min-width: 260px;
+      scroll-snap-align: start;
     }
 
     .adv-icon {
@@ -1391,45 +1467,54 @@
     }
 
     .contact-title {
-      font-size: 20px;
+      font-size: 22px;
       letter-spacing: -0.04em;
       margin: 0 0 6px;
     }
 
     .contact-text {
-      font-size: 13px;
-      color: #9ca3af;
+      font-size: 15px;
+      color: #6b7280;
       margin: 0 0 12px;
     }
 
     .contact-badges {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 10px;
-      font-size: 11px;
+      gap: 12px;
+      margin-bottom: 14px;
     }
 
     .contact-badge {
-      padding: 4px 9px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      font-size: 12px;
+      color: #4b5563;
+      min-width: 160px;
+    }
+
+    .contact-badge strong {
+      display: block;
+      font-size: 13px;
+      color: #111827;
+      margin-bottom: 4px;
     }
 
     .contact-form {
-      background: rgba(15, 23, 42, 0.9);
+      background: #ffffff;
       border-radius: 18px;
-      padding: 14px 14px 12px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
+      padding: 18px 18px 16px;
+      border: 1px solid var(--border-soft);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .field-label {
-      font-size: 11px;
-      color: #9ca3af;
+      font-size: 12px;
+      color: #6b7280;
       margin-bottom: 2px;
     }
 
@@ -1531,105 +1616,63 @@
     /* 9) ФУТЕР */
 
     footer {
-      padding: 40px 0 60px;
-    }
-
-    .footer-shell {
-      background: #ffffff;
-      border-top: 2px solid var(--color-black);
-      border-radius: 32px 32px 0 0;
-      padding: 48px 0 32px;
-      box-shadow: 0 -18px 40px rgba(15, 23, 42, 0.06);
+      padding: 60px 0 40px;
     }
 
     .footer-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 36px;
-      margin-bottom: 48px;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 160px);
+      gap: 24px;
+      align-items: start;
+      padding: 28px;
+      border-radius: 24px;
+      background: #f4f5fb;
+      border: 1px solid var(--border-soft);
+      margin-bottom: 18px;
     }
 
-    .footer-col h3 {
-      font-size: 16px;
-      margin-bottom: 16px;
+    .footer-grid--new .logo {
+      font-size: 20px;
     }
 
-    .footer-col ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .footer-col ul li {
-      margin-bottom: 10px;
-      font-size: 14px;
-      color: #374151;
-    }
-
-    .footer-col ul li a:hover {
-      text-decoration: underline;
-      text-decoration-color: var(--color-pink);
-    }
-
-    .footer-brand {
+    .footer-main {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-    }
-
-    .footer-logo {
-      font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    .footer-email {
+      gap: 10px;
+      color: #4b5563;
       font-size: 14px;
-      color: #374151;
     }
 
-    .social-links {
-      display: flex;
-      gap: 12px;
-      margin-top: 8px;
+    .footer-legal {
+      font-size: 12px;
+      color: #6b7280;
+      display: grid;
+      gap: 4px;
     }
 
-    .social-icon {
-      width: 40px;
-      height: 40px;
-      border: 2px solid var(--color-black);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: 0.2s;
-    }
-
-    .social-icon:hover {
-      background: var(--color-lime);
+    .footer-links {
+      display: grid;
+      gap: 8px;
+      font-size: 14px;
+      color: #4b5563;
     }
 
     .footer-bottom {
-      border-top: 1px solid #eee;
-      padding-top: 24px;
       display: flex;
       justify-content: space-between;
       gap: 16px;
-      color: #888;
+      color: #6b7280;
       font-size: 13px;
+      padding: 0 6px;
     }
 
     @media (max-width: 900px) {
       .footer-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: minmax(0, 1fr);
       }
     }
 
     @media (max-width: 640px) {
-      .footer-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
       .footer-bottom {
         flex-direction: column;
         text-align: center;
@@ -1833,201 +1876,100 @@
 
     <main>
       <!-- КАТАЛОГ ЗАВЕДЕНИЙ + ФИЛЬТРЫ СВЕРХУ -->
-      <section class="catalog">
+      <section class="section section--soft" id="catalog">
         <div class="container">
-          <div class="section-header">
-            <div class="section-kicker">Каталог заведений</div>
-            <h2 class="section-title">Гости находят вас по городу, кухне и тегам</h2>
-            <p class="section-subtitle">
-              taam.menu — это не только конструктор меню, но и каталог, где гости ищут кафе и рестораны по фильтрам и QR‑коду.[file:1]
-            </p>
-          </div>
-          <div class="catalog-inner">
-            <div class="catalog-filters">
-              <details class="filter-group" data-filter-group="city">
-                <summary class="filter-pill">
-                  <span>📍</span>
-                  По городу
-                </summary>
-                <div class="filter-panel">
-                  <button class="filter-option is-active" data-filter-value="all" type="button">
-                    Все города
-                  </button>
-                  <button class="filter-option" data-filter-value="Минск" type="button">Минск</button>
-                  <button class="filter-option" data-filter-value="Гродно" type="button">Гродно</button>
-                </div>
-              </details>
-              <details class="filter-group" data-filter-group="cuisine">
-                <summary class="filter-pill">
-                  <span>🍽</span>
-                  По типу кухни
-                </summary>
-                <div class="filter-panel">
-                  <button class="filter-option is-active" data-filter-value="all" type="button">
-                    Все кухни
-                  </button>
-                  <button class="filter-option" data-filter-value="Авторская кухня" type="button">
-                    Авторская кухня
-                  </button>
-                  <button class="filter-option" data-filter-value="Стритфуд" type="button">
-                    Стритфуд
-                  </button>
-                  <button class="filter-option" data-filter-value="Итальянская" type="button">
-                    Итальянская
-                  </button>
-                </div>
-              </details>
-              <details class="filter-group" data-filter-group="tags">
-                <summary class="filter-pill">
-                  <span>🏷</span>
-                  По тегам (халяль, детская, Wi‑Fi)
-                </summary>
-                <div class="filter-panel">
-                  <button class="filter-option is-active" data-filter-value="all" type="button">
-                    Все теги
-                  </button>
-                  <button class="filter-option" data-filter-value="Завтраки" type="button">Завтраки</button>
-                  <button class="filter-option" data-filter-value="Wi‑Fi" type="button">Wi‑Fi</button>
-                  <button class="filter-option" data-filter-value="Халяль" type="button">Халяль</button>
-                  <button class="filter-option" data-filter-value="Детская зона" type="button">
-                    Детская зона
-                  </button>
-                </div>
-              </details>
-              <details class="filter-group" data-filter-group="delivery">
-                <summary class="filter-pill">
-                  <span>🛵</span>
-                  Есть доставка
-                </summary>
-                <div class="filter-panel">
-                  <button class="filter-option is-active" data-filter-value="all" type="button">
-                    Любой формат
-                  </button>
-                  <button class="filter-option" data-filter-value="yes" type="button">Есть доставка</button>
-                  <button class="filter-option" data-filter-value="no" type="button">Только офлайн</button>
-                </div>
-              </details>
-              <details class="filter-group" data-filter-group="type">
-                <summary class="filter-pill">
-                  <span>☕</span>
-                  Кофейни рядом
-                </summary>
-                <div class="filter-panel">
-                  <button class="filter-option is-active" data-filter-value="all" type="button">
-                    Все форматы
-                  </button>
-                  <button class="filter-option" data-filter-value="Кофейня" type="button">Кофейни</button>
-                  <button class="filter-option" data-filter-value="Пиццерия" type="button">Пиццерии</button>
-                  <button class="filter-option" data-filter-value="Бургерная" type="button">Бургерные</button>
-                </div>
-              </details>
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Каталог заведений</h2>
+              <p class="section-subtitle">
+                taam.menu — это не только конструктор меню, но и каталог заведений, где гости ищут места по городу, типу и тегам.
+              </p>
             </div>
 
-            <div class="catalog-grid">
-              <article
-                class="place-card"
-                data-city="Минск"
-                data-cuisine="Авторская кухня"
-                data-tags="Завтраки,Кофе,Wi‑Fi"
-                data-delivery="no"
-                data-type="Кофейня"
-              >
-                <div class="place-card-top">
-                  <div class="place-card-logo"></div>
-                  <div class="place-card-main">
-                    <div class="place-card-name">taam cafe</div>
-                    <div class="place-card-meta">
-                      Минск · авторская кухня · 500 м от вас
-                    </div>
-                    <div class="place-card-tags">
-                      <span class="tag-pill">Завтраки</span>
-                      <span class="tag-pill">Кофе</span>
-                      <span class="tag-pill">Wi‑Fi</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="place-card-footer">
-                  <span>Открыто до 23:00</span>
-                  <a href="#" class="place-card-link">
-                    Открыть меню
-                    <span>↗</span>
-                  </a>
-                </div>
-              </article>
+            <div class="catalog-meta">
+              <div class="counter-pill">
+                Всего найдено: <span id="foundCount">0</span>
+              </div>
 
-              <article
-                class="place-card"
-                data-city="Минск"
-                data-cuisine="Стритфуд"
-                data-tags="Доставка,Навынос,Парковка"
-                data-delivery="yes"
-                data-type="Бургерная"
-              >
-                <div class="place-card-top">
-                  <div class="place-card-logo" style="background:linear-gradient(135deg,#bbf7d0,#4ade80);"></div>
-                  <div class="place-card-main">
-                    <div class="place-card-name">Burger&Street</div>
-                    <div class="place-card-meta">
-                      Стритфуд · доставка и навынос
-                    </div>
-                    <div class="place-card-tags">
-                      <span class="tag-pill">Доставка</span>
-                      <span class="tag-pill">Навынос</span>
-                      <span class="tag-pill">Парковка</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="place-card-footer">
-                  <span>Доставка 30–45 мин</span>
-                  <a href="#" class="place-card-link">
-                    Открыть меню
-                    <span>↗</span>
-                  </a>
-                </div>
-              </article>
+              <div class="sort-wrap">
+                <label class="sr-only" for="sortSelect">Сортировка</label>
+                <select id="sortSelect" class="select-soft">
+                  <option value="popular">Сначала популярные</option>
+                  <option value="newest">Сначала новые</option>
+                </select>
+              </div>
+            </div>
+          </div>
 
-              <article
-                class="place-card"
-                data-city="Гродно"
-                data-cuisine="Итальянская"
-                data-tags="Детская зона,Халяль"
-                data-delivery="yes"
-                data-type="Пиццерия"
-              >
-                <div class="place-card-top">
-                  <div class="place-card-logo" style="background:linear-gradient(135deg,#ddd6fe,#a855f7);"></div>
-                  <div class="place-card-main">
-                    <div class="place-card-name">Family Pizza</div>
-                    <div class="place-card-meta">
-                      Пицца · детская зона · центр
-                    </div>
-                    <div class="place-card-tags">
-                      <span class="tag-pill">Детская зона</span>
-                      <span class="tag-pill">Халяль</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="place-card-footer">
-                  <span>Сегодня · акции</span>
-                  <a href="#" class="place-card-link">
-                    Открыть меню
-                    <span>↗</span>
-                  </a>
-                </div>
-              </article>
+          <div class="catalog-toolbar">
+            <div class="search-wrap">
+              <input
+                id="searchInput"
+                class="input-soft"
+                type="search"
+                placeholder="Поиск по названию, городу, тегам или типу..."
+              />
+            </div>
+
+            <button class="btn-soft" id="filtersToggle" type="button">
+              Фильтры
+              <span class="btn-soft__icon">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="4" y1="6" x2="20" y2="6"></line>
+                  <line x1="7" y1="12" x2="17" y2="12"></line>
+                  <line x1="10" y1="18" x2="14" y2="18"></line>
+                </svg>
+              </span>
+            </button>
+          </div>
+
+          <div class="catalog-grid">
+            <aside class="filters-panel" id="filtersPanel" style="display:none;">
+              <div class="filters-head">
+                <div class="filters-title">Фильтры</div>
+                <button class="link-soft" id="clearFilters" type="button">Сбросить</button>
+              </div>
+
+              <div class="filter-group">
+                <span class="filter-label">Город</span>
+                <div class="filter-buttons" id="cityFilters"></div>
+              </div>
+
+              <div class="filter-group">
+                <span class="filter-label">Тип заведения</span>
+                <div class="filter-buttons" id="typeFilters"></div>
+              </div>
+
+              <div class="filter-group">
+                <span class="filter-label">Теги</span>
+                <div class="filter-buttons" id="tagFilters"></div>
+              </div>
+            </aside>
+
+            <div>
+              <div class="cards-grid" id="catalogCards"></div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- КАК СДЕЛАТЬ СВОЕ МЕНЮ + САМОСТОЯТЕЛЬНО / С НАШЕЙ ПОДДЕРЖКОЙ В ОДНОМ БЛОКЕ -->
-      <section>
+      <section id="how-modes">
         <div class="container">
           <div class="section-header">
             <div class="section-kicker">Как запустить меню</div>
             <h2 class="section-title">Сделайте цифровое меню сами или с нашей помощью</h2>
             <p class="section-subtitle">
-              Выберите сценарий: полностью самостоятельно в конструкторе или с поддержкой команды taam.menu “под ключ”.[file:1]
+              Выберите сценарий: полностью самостоятельно в конструкторе или с поддержкой команды taam.menu “под ключ”.
             </p>
           </div>
 
@@ -2041,15 +1983,15 @@
                 <ul class="how-list">
                   <li>
                     <span>🔑</span>
-                    <div>Зарегистрируйтесь в taam.menu и создайте профиль заведения.[file:1]</div>
+                    <div>Зарегистрируйтесь в taam.menu и создайте профиль заведения.</div>
                   </li>
                   <li>
                     <span>🍽</span>
-                    <div>Добавьте блюда, категории и цены — меню собирается прямо в браузере.[file:1]</div>
+                    <div>Добавьте блюда, категории и цены — меню собирается прямо в браузере.</div>
                   </li>
                   <li>
                     <span>📲</span>
-                    <div>Получите QR‑код и ссылку, разместите их на столах и в соцсетях.[file:1]</div>
+                    <div>Получите QR‑код и ссылку, разместите их на столах и в соцсетях.</div>
                   </li>
                 </ul>
                 <p class="how-note">
@@ -2065,19 +2007,19 @@
                 <ul class="how-list">
                   <li>
                     <span>📷</span>
-                    <div>Помогаем с фотографиями и оформлением позиций.[file:1]</div>
+                    <div>Помогаем с фотографиями и оформлением позиций.</div>
                   </li>
                   <li>
                     <span>🧾</span>
-                    <div>Создаём цифровое меню с блюдами, категориями и ценами вместо вас.[file:1]</div>
+                    <div>Создаём цифровое меню с блюдами, категориями и ценами вместо вас.</div>
                   </li>
                   <li>
                     <span>🧩</span>
-                    <div>Готовим и печатаем таблички с QR‑кодами на столы.[file:1]</div>
+                    <div>Готовим и печатаем таблички с QR‑кодами на столы.</div>
                   </li>
                   <li>
                     <span>🌐</span>
-                    <div>Добавляем заведение на сайт taam.menu и настраиваем каталог.[file:1]</div>
+                    <div>Добавляем заведение на сайт taam.menu и настраиваем каталог.</div>
                   </li>
                 </ul>
                 <p class="how-note">
@@ -2117,7 +2059,7 @@
             <div class="section-kicker">Функции сервиса</div>
             <h2 class="section-title">Что умеет taam.menu</h2>
             <p class="section-subtitle">
-              Инструменты, которые делают меню удобным для гостей и помогают заведению продавать больше.[file:1]
+              Инструменты, которые делают меню удобным для гостей и помогают заведению продавать больше.
             </p>
           </div>
 
@@ -2127,7 +2069,7 @@
                 <div class="feature-tag">Меню</div>
                 <h3 class="feature-title">Онлайн‑меню с фото и ценами</h3>
                 <p class="feature-text">
-                  Каждая позиция с фото, описанием и ценой — без мелкого текста и старых блюд.[file:1]
+                  Каждая позиция с фото, описанием и ценой — без мелкого текста и старых блюд.
                 </p>
                 <span class="feature-badge">Меню онлайн</span>
               </article>
@@ -2136,7 +2078,7 @@
                 <div class="feature-tag">Структура</div>
                 <h3 class="feature-title">Категории и теги</h3>
                 <p class="feature-text">
-                  Завтраки, десерты, напитки, детское — гость быстро находит нужный раздел и фильтрует по тегам.[file:1]
+                  Завтраки, десерты, напитки, детское — гость быстро находит нужный раздел и фильтрует по тегам.
                 </p>
                 <span class="feature-badge">Категории</span>
               </article>
@@ -2145,7 +2087,7 @@
                 <div class="feature-tag">Управление</div>
                 <h3 class="feature-title">Изменения в один клик</h3>
                 <p class="feature-text">
-                  Редактируйте цены, скрывайте блюда и добавляйте новинки без перевёрстки меню.[file:1]
+                  Редактируйте цены, скрывайте блюда и добавляйте новинки без перевёрстки меню.
                 </p>
                 <span class="feature-badge">1 клик</span>
               </article>
@@ -2154,7 +2096,7 @@
                 <div class="feature-tag">Продвижение</div>
                 <h3 class="feature-title">QR‑код, ссылка и SEO</h3>
                 <p class="feature-text">
-                  QR‑коды на столах, ссылка в соцсетях и индексация в поиске — дополнительный трафик и новые гости.[file:1]
+                  QR‑коды на столах, ссылка в соцсетях и индексация в поиске — дополнительный трафик и новые гости.
                 </p>
                 <span class="feature-badge">QR + SEO</span>
               </article>
@@ -2163,12 +2105,12 @@
             <aside class="features-side">
               <h3 class="features-side-title">Для гостей удобно, для вас — прозрачно</h3>
               <p class="features-side-text">
-                taam.menu показывает, что и как заказывают, помогает видеть наиболее популярные блюда и управлять доставкой.[file:1]
+                taam.menu показывает, что и как заказывают, помогает видеть наиболее популярные блюда и управлять доставкой.
               </p>
               <ul class="features-side-list">
                 <li>
                   <span>📈</span>
-                  <span>Статистика заказов — какие позиции приносят максимум выручки.[file:1]</span>
+                  <span>Статистика заказов — какие позиции приносят максимум выручки.</span>
                 </li>
                 <li>
                   <span>🧮</span>
@@ -2176,11 +2118,11 @@
                 </li>
                 <li>
                   <span>🌍</span>
-                  <span>Поддержка разных валют для туристов и гостей из других стран.[file:1]</span>
+                  <span>Поддержка разных валют для туристов и гостей из других стран.</span>
                 </li>
               </ul>
               <div class="features-side-text">
-                Подключите доставку и принимайте заказы прямо из меню — без лишних звонков.[file:1]
+                Подключите доставку и принимайте заказы прямо из меню — без лишних звонков.
               </div>
               <div class="features-side-pulse"></div>
             </aside>
@@ -2205,84 +2147,78 @@
             </div>
 
             <div class="advantages-list">
-              <div class="advantages-col">
-                <article class="adv-card">
-                  <div class="adv-icon">⚡</div>
-                  <div>
-                    <div class="adv-main-title">Быстрый запуск без разработчика</div>
-                    <p class="adv-main-text">
-                      Готовое решение: не нужно заказывать сайт, макеты и верстку меню каждое изменение.
-                    </p>
-                  </div>
-                </article>
+              <article class="adv-card">
+                <div class="adv-icon">⚡</div>
+                <div>
+                  <div class="adv-main-title">Быстрый запуск без разработчика</div>
+                  <p class="adv-main-text">
+                    Готовое решение: не нужно заказывать сайт, макеты и верстку меню каждое изменение.
+                  </p>
+                </div>
+              </article>
 
-                <article class="adv-card adv-card--soft">
-                  <div class="adv-icon">💸</div>
-                  <div>
-                    <div class="adv-main-title">Экономия на печати и дизайне</div>
-                    <p class="adv-main-text">
-                      Любое изменение цены — в пару кликов, без перепечатки бумажных меню и плакатов.
-                    </p>
-                  </div>
-                </article>
+              <article class="adv-card adv-card--soft">
+                <div class="adv-icon">💸</div>
+                <div>
+                  <div class="adv-main-title">Экономия на печати и дизайне</div>
+                  <p class="adv-main-text">
+                    Любое изменение цены — в пару кликов, без перепечатки бумажных меню и плакатов.
+                  </p>
+                </div>
+              </article>
 
-                <article class="adv-card">
-                  <div class="adv-icon">📱</div>
-                  <div>
-                    <div class="adv-main-title">Удобно с телефона и планшета</div>
-                    <p class="adv-main-text">
-                      Меню адаптировано под смартфоны: крупный текст, понятные кнопки и быстрый скролл.
-                    </p>
-                  </div>
-                </article>
-              </div>
+              <article class="adv-card">
+                <div class="adv-icon">📱</div>
+                <div>
+                  <div class="adv-main-title">Удобно с телефона и планшета</div>
+                  <p class="adv-main-text">
+                    Меню адаптировано под смартфоны: крупный текст, понятные кнопки и быстрый скролл.
+                  </p>
+                </div>
+              </article>
 
-              <div class="advantages-col">
-                <div class="adv-label">Для команды и гостей</div>
+              <article class="adv-card adv-card--soft">
+                <div class="adv-icon">👨‍🍳</div>
+                <div>
+                  <div class="adv-main-title">Меньше вопросов официанту</div>
+                  <p class="adv-main-text">
+                    Фото, состав и вес блюд уже в меню — персоналу проще работать с гостями.
+                  </p>
+                </div>
+              </article>
 
-                <article class="adv-card adv-card--soft">
-                  <div class="adv-icon">👨‍🍳</div>
-                  <div>
-                    <div class="adv-main-title">Меньше вопросов официанту</div>
-                    <p class="adv-main-text">
-                      Фото, состав и вес блюд уже в меню — персоналу проще работать с гостями.
-                    </p>
-                  </div>
-                </article>
+              <article class="adv-card">
+                <div class="adv-icon">📊</div>
+                <div>
+                  <div class="adv-main-title">Статистика заказов и позиций</div>
+                  <p class="adv-main-text">
+                    Видно, какие блюда заказывают чаще, а какие “висят” в меню и занимают место.
+                  </p>
+                </div>
+              </article>
 
-                <article class="adv-card">
-                  <div class="adv-icon">📊</div>
-                  <div>
-                    <div class="adv-main-title">Статистика заказов и позиций</div>
-                    <p class="adv-main-text">
-                      Видно, какие блюда заказывают чаще, а какие “висят” в меню и занимают место.[file:1]
-                    </p>
-                  </div>
-                </article>
-
-                <article class="adv-card adv-card--soft">
-                  <div class="adv-icon">🧩</div>
-                  <div>
-                    <div class="adv-main-title">Работает вместе с вашим брендом</div>
-                    <p class="adv-main-text">
-                      Настраиваем цвета, фото и оформление под стиль заведения, а не наоборот.
-                    </p>
-                  </div>
-                </article>
-              </div>
+              <article class="adv-card adv-card--soft">
+                <div class="adv-icon">🧩</div>
+                <div>
+                  <div class="adv-main-title">Работает вместе с вашим брендом</div>
+                  <p class="adv-main-text">
+                    Настраиваем цвета, фото и оформление под стиль заведения, а не наоборот.
+                  </p>
+                </div>
+              </article>
             </div>
           </div>
         </div>
       </section>
 
       <!-- ТАРИФЫ -->
-      <section class="pricing">
+      <section class="pricing" id="tariffs">
         <div class="container">
           <div class="section-header">
             <div class="section-kicker">Тарифы</div>
             <h2 class="section-title">Выберите тариф под вашу задачу</h2>
             <p class="section-subtitle">
-              От демо‑доступа, чтобы попробовать taam.menu, до полного набора функций с доставкой и аналитикой.[file:1]
+              От демо‑доступа, чтобы попробовать taam.menu, до полного набора функций с доставкой и аналитикой.
             </p>
           </div>
 
@@ -2293,7 +2229,7 @@
                 <div>
                   <h3 class="pricing-title">Демо‑доступ 3 дня</h3>
                   <p class="pricing-text">
-                    Попробуйте все функции taam.menu без ограничений и привязки карты.[file:1]
+                    Попробуйте все функции taam.menu без ограничений и привязки карты.
                   </p>
                 </div>
                 <div class="pricing-badge">3 дня бесплатно</div>
@@ -2302,7 +2238,7 @@
                 <ul class="pricing-benefits">
                   <li>
                     <span>✔</span>
-                    <div>Все функции конструктора и каталога заведений.[file:1]</div>
+                    <div>Все функции конструктора и каталога заведений.</div>
                   </li>
                   <li>
                     <span>✔</span>
@@ -2332,7 +2268,7 @@
                 <div>
                   <h3 class="pricing-title">Премиум — 30 дней</h3>
                   <p class="pricing-text">
-                    Максимум продаж: QR‑меню, доставка и аналитика по заказам в одном решении.[file:1]
+                    Максимум продаж: QR‑меню, доставка и аналитика по заказам в одном решении.
                   </p>
                 </div>
                 <div class="pricing-badge">Максимум возможностей</div>
@@ -2341,19 +2277,19 @@
                 <ul class="pricing-benefits">
                   <li>
                     <span>⭐</span>
-                    <div>Всё, что в тарифе «QR‑меню» — без ограничений по позициям.[file:1]</div>
+                    <div>Всё, что в тарифе «QR‑меню» — без ограничений по позициям.</div>
                   </li>
                   <li>
                     <span>⭐</span>
-                    <div>Оформление доставки: принимайте заказы онлайн прямо из меню.[file:1]</div>
+                    <div>Оформление доставки: принимайте заказы онлайн прямо из меню.</div>
                   </li>
                   <li>
                     <span>⭐</span>
-                    <div>Статистика заказов и аналитика по популярным блюдам.[file:1]</div>
+                    <div>Статистика заказов и аналитика по популярным блюдам.</div>
                   </li>
                   <li>
                     <span>⭐</span>
-                    <div>Поддержка разных валют для туристов и гостей из‑за рубежа.[file:1]</div>
+                    <div>Поддержка разных валют для туристов и гостей из‑за рубежа.</div>
                   </li>
                 </ul>
               </div>
@@ -2375,7 +2311,7 @@
                 <div>
                   <h3 class="pricing-title">QR‑меню — 30 дней</h3>
                   <p class="pricing-text">
-                    Электронное меню и профиль заведения — чтобы гости выбирали быстрее.[file:1]
+                    Электронное меню и профиль заведения — чтобы гости выбирали быстрее.
                   </p>
                 </div>
                 <div class="pricing-badge">QR‑меню</div>
@@ -2384,19 +2320,19 @@
                 <ul class="pricing-benefits">
                   <li>
                     <span>✔</span>
-                    <div>Профиль заведения: контакты, адрес, график работы, соцсети.[file:1]</div>
+                    <div>Профиль заведения: контакты, адрес, график работы, соцсети.</div>
                   </li>
                   <li>
                     <span>✔</span>
-                    <div>Неограниченное количество блюд и категорий с фото и ценой.[file:1]</div>
+                    <div>Неограниченное количество блюд и категорий с фото и ценой.</div>
                   </li>
                   <li>
                     <span>✔</span>
-                    <div>Уникальный QR‑код и ссылка для размещения на столах и в соцсетях.[file:1]</div>
+                    <div>Уникальный QR‑код и ссылка для размещения на столах и в соцсетях.</div>
                   </li>
                   <li>
                     <span>✔</span>
-                    <div>Поиск, фильтры и теги, SEO‑индексация в Google и Яндекс.[file:1]</div>
+                    <div>Поиск, фильтры и теги, SEO‑индексация в Google и Яндекс.</div>
                   </li>
                   <li>
                     <span>✔</span>
@@ -2420,19 +2356,28 @@
       </section>
 
       <!-- ФОРМА СВЯЗИ -->
-      <section>
+      <section id="contacts">
         <div class="container">
           <div class="contact">
             <div class="contact-inner">
               <div>
                 <h2 class="contact-title">Связаться с taam.menu</h2>
                 <p class="contact-text">
-                  Оставьте заявку, и команда подскажет, как лучше запустить цифровое меню именно в вашем формате — кафе, баре, кофейне или пиццерии.[file:1]
+                  Оставьте заявку, и команда подскажет, как лучше запустить цифровое меню именно в вашем формате — кафе, баре, кофейне или пиццерии.
                 </p>
                 <div class="contact-badges">
-                  <span class="contact-badge">Подберём тариф под задачи</span>
-                  <span class="contact-badge">Поможем подготовить меню</span>
-                  <span class="contact-badge">Ответим в мессенджере</span>
+                  <span class="contact-badge">
+                    <strong>Подбор тарифа</strong>
+                    Поможем выбрать оптимальный пакет под формат заведения.
+                  </span>
+                  <span class="contact-badge">
+                    <strong>Подготовка меню</strong>
+                    Подскажем, как быстро собрать позиции и фото.
+                  </span>
+                  <span class="contact-badge">
+                    <strong>Ответ в мессенджере</strong>
+                    На связи и отвечаем без долгих ожиданий.
+                  </span>
                 </div>
               </div>
               <form class="contact-form">
@@ -2477,53 +2422,51 @@
 
     <!-- ФУТЕР -->
     <footer>
-      <div class="footer-shell">
-        <div class="container">
-          <div class="footer-grid">
-            <div class="footer-col footer-brand">
-              <div class="footer-logo">taam.menu</div>
-              <div class="footer-email">hello@taam.menu</div>
-              <div>
-                Цифровые меню для кафе и ресторанов — обновления за пару минут и доступ по QR‑коду.
-              </div>
-              <div class="social-links">
-                <a href="#" class="social-icon" aria-label="Telegram">✈️</a>
-                <a href="#" class="social-icon" aria-label="Instagram">📷</a>
-                <a href="#" class="social-icon" aria-label="Facebook">👍</a>
-              </div>
-            </div>
-            <div class="footer-col">
-              <h3>Навигация</h3>
-              <ul>
-                <li><a href="#">Каталог</a></li>
-                <li><a href="#">Как это работает?</a></li>
-                <li><a href="#">Преимущества</a></li>
-                <li><a href="#">Тарифы</a></li>
-                <li><a href="#">О нас</a></li>
-              </ul>
-            </div>
-            <div class="footer-col">
-              <h3>Продукт</h3>
-              <ul>
-                <li><a href="#">Создать меню</a></li>
-                <li><a href="https://primernoe.taam.menu/" target="_blank" rel="noopener">Посмотреть пример</a></li>
-                <li><a href="#">Заказать консультацию</a></li>
-                <li><a href="#">Войти</a></li>
-              </ul>
-            </div>
-            <div class="footer-col">
-              <h3>Контакты</h3>
-              <ul>
-                <li>Минск, Беларусь</li>
-                <li>+375 29 000‑00‑00</li>
-                <li>Поддержка 10:00–20:00</li>
-              </ul>
+      <div class="container">
+        <div class="footer-grid footer-grid--new">
+          <div class="footer-main">
+            <div class="logo">taam.menu</div>
+            <div>support@taam.menu</div>
+            <div class="footer-legal">
+              <div>ИНН: 384908260514</div>
+              <div>Кодзоев Микаил Иссаевич</div>
+              <div>от 08.10.2025</div>
+              <div>Межрайонная ИФНС №16 по Иркутской области</div>
             </div>
           </div>
-          <div class="footer-bottom">
-            <span>© 2024 taam.menu. Все права защищены.</span>
-            <span>Политика конфиденциальности · Оферта</span>
+
+          <div class="footer-links">
+            <a href="#catalog">Каталог</a>
+            <a href="#how-modes">Как это работает</a>
+            <a href="#tariffs">Тарифы</a>
+            <a href="#contacts">Контакты</a>
           </div>
+
+          <div style="margin-left: auto;">
+            <a href="#" class="btn-login-yellow" style="width: 160px; justify-content: center;">
+              Войти
+              <div class="login-icon-circle">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>© taam.menu</div>
+          <div>support@taam.menu</div>
         </div>
       </div>
     </footer>
@@ -2558,55 +2501,214 @@
       });
     }
 
-    // Фильтры каталога
-    const filterGroups = document.querySelectorAll(".filter-group");
-    const placeCards = document.querySelectorAll(".place-card");
-    const activeFilters = {};
+    // Каталог: поиск, фильтры, сортировка
+    const catalogData = [
+      {
+        name: "taam cafe",
+        city: "Минск",
+        type: "Кофейня",
+        cuisine: "Авторская кухня",
+        tags: ["Завтраки", "Кофе", "Wi‑Fi"],
+        status: "Открыто до 23:00",
+        meta: "Минск · авторская кухня · 500 м от вас",
+        popularity: 92,
+        createdAt: "2024-04-12",
+        logoStyle: "",
+      },
+      {
+        name: "Burger&Street",
+        city: "Минск",
+        type: "Бургерная",
+        cuisine: "Стритфуд",
+        tags: ["Доставка", "Навынос", "Парковка"],
+        status: "Доставка 30–45 мин",
+        meta: "Стритфуд · доставка и навынос",
+        popularity: 88,
+        createdAt: "2024-03-05",
+        logoStyle: "background:linear-gradient(135deg,#bbf7d0,#4ade80);",
+      },
+      {
+        name: "Family Pizza",
+        city: "Гродно",
+        type: "Пиццерия",
+        cuisine: "Итальянская",
+        tags: ["Детская зона", "Халяль"],
+        status: "Сегодня · акции",
+        meta: "Пицца · детская зона · центр",
+        popularity: 80,
+        createdAt: "2024-02-15",
+        logoStyle: "background:linear-gradient(135deg,#ddd6fe,#a855f7);",
+      },
+    ];
 
-    filterGroups.forEach((group) => {
-      activeFilters[group.dataset.filterGroup] = "all";
-      const options = group.querySelectorAll(".filter-option");
-      options.forEach((option) => {
-        option.addEventListener("click", () => {
-          options.forEach((btn) => btn.classList.remove("is-active"));
-          option.classList.add("is-active");
-          activeFilters[group.dataset.filterGroup] = option.dataset.filterValue;
-          group.open = false;
-          applyFilters();
-        });
+    const catalogCards = document.getElementById("catalogCards");
+    const foundCount = document.getElementById("foundCount");
+    const searchInput = document.getElementById("searchInput");
+    const sortSelect = document.getElementById("sortSelect");
+    const filtersPanel = document.getElementById("filtersPanel");
+    const filtersToggle = document.getElementById("filtersToggle");
+    const clearFilters = document.getElementById("clearFilters");
+
+    const activeFilters = {
+      city: "all",
+      type: "all",
+      tag: "all",
+      search: "",
+    };
+
+    const normalize = (value) => value.toLowerCase();
+
+    const renderFilterButtons = (container, values, key) => {
+      const allButton = document.createElement("button");
+      allButton.type = "button";
+      allButton.className = "filter-button is-active";
+      allButton.textContent = "Все";
+      allButton.addEventListener("click", () => {
+        activeFilters[key] = "all";
+        container.querySelectorAll(".filter-button").forEach((btn) => btn.classList.remove("is-active"));
+        allButton.classList.add("is-active");
+        renderCatalog();
       });
-    });
+      container.appendChild(allButton);
 
-    const parseTags = (value) =>
-      value
-        .split(",")
-        .map((item) => item.trim())
-        .filter(Boolean);
+      values.forEach((value) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "filter-button";
+        button.textContent = value;
+        button.addEventListener("click", () => {
+          activeFilters[key] = value;
+          container.querySelectorAll(".filter-button").forEach((btn) => btn.classList.remove("is-active"));
+          button.classList.add("is-active");
+          renderCatalog();
+        });
+        container.appendChild(button);
+      });
+    };
 
-    const matchesFilter = (card, group, value) => {
-      if (value === "all") {
-        return true;
-      }
-      const dataValue = card.dataset[group];
-      if (!dataValue) {
+    const buildFilters = () => {
+      const cityFilters = document.getElementById("cityFilters");
+      const typeFilters = document.getElementById("typeFilters");
+      const tagFilters = document.getElementById("tagFilters");
+
+      const cities = [...new Set(catalogData.map((item) => item.city))];
+      const types = [...new Set(catalogData.map((item) => item.type))];
+      const tags = [...new Set(catalogData.flatMap((item) => item.tags))];
+
+      cityFilters.innerHTML = "";
+      typeFilters.innerHTML = "";
+      tagFilters.innerHTML = "";
+
+      renderFilterButtons(cityFilters, cities, "city");
+      renderFilterButtons(typeFilters, types, "type");
+      renderFilterButtons(tagFilters, tags, "tag");
+    };
+
+    const matchesFilters = (item) => {
+      if (activeFilters.city !== "all" && item.city !== activeFilters.city) {
         return false;
       }
-      if (group === "tags") {
-        return parseTags(dataValue).includes(value);
+      if (activeFilters.type !== "all" && item.type !== activeFilters.type) {
+        return false;
       }
-      return dataValue === value;
+      if (activeFilters.tag !== "all" && !item.tags.includes(activeFilters.tag)) {
+        return false;
+      }
+      if (activeFilters.search) {
+        const query = normalize(activeFilters.search);
+        const haystack = [
+          item.name,
+          item.city,
+          item.type,
+          item.cuisine,
+          item.tags.join(" "),
+        ]
+          .join(" ")
+          .toLowerCase();
+        if (!haystack.includes(query)) {
+          return false;
+        }
+      }
+      return true;
     };
 
-    const applyFilters = () => {
-      placeCards.forEach((card) => {
-        const isMatch = Object.entries(activeFilters).every(([group, value]) =>
-          matchesFilter(card, group, value)
-        );
-        card.classList.toggle("is-hidden", !isMatch);
+    const sortItems = (items) => {
+      if (sortSelect?.value === "newest") {
+        return items.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      }
+      return items.sort((a, b) => b.popularity - a.popularity);
+    };
+
+    const renderCatalog = () => {
+      const filtered = sortItems(catalogData.filter(matchesFilters));
+      if (catalogCards) {
+        catalogCards.innerHTML = filtered
+          .map(
+            (item) => `
+              <article class="place-card">
+                <div class="place-card-top">
+                  <div class="place-card-logo" style="${item.logoStyle}"></div>
+                  <div class="place-card-main">
+                    <div class="place-card-name">${item.name}</div>
+                    <div class="place-card-meta">${item.meta}</div>
+                    <div class="place-card-tags">
+                      ${item.tags.map((tag) => `<span class="tag-pill">${tag}</span>`).join("")}
+                    </div>
+                  </div>
+                </div>
+                <div class="place-card-footer">
+                  <span>${item.status}</span>
+                  <a href="#" class="place-card-link">
+                    Открыть меню
+                    <span>↗</span>
+                  </a>
+                </div>
+              </article>
+            `
+          )
+          .join("");
+      }
+      if (foundCount) {
+        foundCount.textContent = filtered.length;
+      }
+    };
+
+    if (filtersToggle && filtersPanel) {
+      filtersToggle.addEventListener("click", () => {
+        filtersPanel.style.display = filtersPanel.style.display === "none" ? "block" : "none";
       });
-    };
+    }
 
-    applyFilters();
+    if (clearFilters) {
+      clearFilters.addEventListener("click", () => {
+        activeFilters.city = "all";
+        activeFilters.type = "all";
+        activeFilters.tag = "all";
+        activeFilters.search = "";
+        if (searchInput) {
+          searchInput.value = "";
+        }
+        buildFilters();
+        renderCatalog();
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener("input", (event) => {
+        activeFilters.search = event.target.value.trim();
+        renderCatalog();
+      });
+    }
+
+    if (sortSelect) {
+      sortSelect.addEventListener("change", renderCatalog);
+    }
+
+    buildFilters();
+    if (filtersPanel) {
+      filtersPanel.style.display = window.innerWidth >= 980 ? "block" : "none";
+    }
+    renderCatalog();
 
     // Форма: вывод данных в консоль
     const contactForm = document.querySelector(".contact-form");
